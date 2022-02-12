@@ -1,0 +1,58 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vscode-css-languageservice/main/docs/customData.schema.json",
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@tailwind",
+      "description": {
+        "kind": "markdown",
+        "value": "Use the `@tailwind` directive to insert Tailwind's `base`, `components`, `utilities` and `screens` styles into your CSS."
+      },
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#tailwind"
+        }
+      ]
+    },
+    {
+      "name": "@layer",
+      "description": {
+        "kind": "markdown",
+        "value": "Use the `@layer` directive to tell Tailwind which “bucket” a set of custom styles belong to.\nValid layers are `base`, `components`, and `utilities`\n```css\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n@layer base {\n  h1 {\n    @apply text-2xl;\n  }\n  h2 {\n    @apply text-xl;\n  }\n}\n\n@layer components {\n  .btn-blue {\n    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;\n  }\n}\n\n@layer utilities {\n  .filter-none {\n    filter: none;\n  }\n  .filter-grayscale {\n    filter: grayscale(100%);\n  }\n}\n```\n"
+      },
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#layer"
+        }
+      ]
+    },
+    {
+      "name": "@apply",
+      "description": {
+        "kind": "markdown",
+        "value": "Use @apply to inline any existing utility classes into your own custom CSS:\n```css\n/* Input */\n.btn {\n  @apply font-bold py-2 px-4 rounded !important;\n}\n\n/* Output */\n.btn {\n  font-weight: 700 !important;\n  padding-top: .5rem !important;\n  padding-bottom: .5rem !important;\n  padding-right: 1rem !important;\n  padding-left: 1rem !important;\n  border-radius: .25rem !important;\n}\n```\n"
+      },
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#apply"
+        }
+      ]
+    },
+    {
+      "name": "@screen",
+      "description": {
+        "kind": "markdown",
+        "value": "The `@screen` directive allows you to create media queries that reference your breakpoints by **name** instead of duplicating their values in your own CSS:\n```css\n@screen sm {\n  /* ... */\n}\n```\n…gets transformed into this:\n```css\n@media (min-width: 640px) {\n  /* ... */\n}\n```\n"
+      },
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#screen"
+        }
+      ]
+    }
+  ]
+}
