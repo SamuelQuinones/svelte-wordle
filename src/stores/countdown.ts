@@ -1,5 +1,5 @@
 import { readable } from 'svelte/store';
-import duration from 'dayjs/plugin/duration';
+import duration from 'dayjs/plugin/duration.js';
 import dayjs from 'dayjs';
 import { tomorrow } from '$lib/words';
 dayjs.extend(duration);
