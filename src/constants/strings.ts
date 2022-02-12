@@ -1,4 +1,4 @@
-export const GAME_TITLE = 'Svelte Wordle';
+export const GAME_TITLE = 'Svordle';
 
 export const WIN_MESSAGES = [
 	'Absolute mad lad',
@@ -16,7 +16,7 @@ export const INVALID_WORD_MSG = 'Not a valid letters';
 export const CORRECT_WORD_MSG = (solution: string) => `The word was ${solution}`;
 export const ENTER_TEXT = 'ENTER';
 export const DELETE_TEXT = 'DELETE';
-export const STATISTICS_TITLE = 'Word Game Stats';
+export const STATISTICS_TITLE = 'Svordle Stats';
 export const GUESS_DISTRIBUTION_TEXT = 'Guess Distribution';
 export const NEW_WORD_TEXT = 'New word in';
 export const SHARE_TEXT = 'Share';

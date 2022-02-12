@@ -117,12 +117,12 @@
 </script>
 
 <svelte:head>
-	<title>Word Game</title>
+	<title>Svordle</title>
 	<meta name="description" content="A worldle clone built with svelte" />
-	<meta name="og:title" content="Word Game" />
+	<meta name="og:title" content="Svordle" />
 	<meta name="og:description" content="A worldle clone built with svelte" />
-	<meta name="site_name" content="Word Game" />
-	<meta name="og:site_name" content="Word Game" />
+	<meta name="site_name" content="Svordle" />
+	<meta name="og:site_name" content="Svordle" />
 	<meta property="og:type" content="website" />
 </svelte:head>
 
