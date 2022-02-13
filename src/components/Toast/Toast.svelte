@@ -2,7 +2,7 @@
 	import classNames from 'classnames';
 
 	import { createEventDispatcher } from 'svelte';
-	import { fade, fly } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 
 	const dispatch = createEventDispatcher();
 
@@ -13,7 +13,8 @@
 <div
 	class={classNames('toast', 'min-w-[12rem]', type, { 'justify-center': !dismissible })}
 	role="alert"
-	transition:fly={{ x: -100, duration: 300 }}>
+	transition:fly={{ x: -100, duration: 300 }}
+>
 	<div class={classNames({ 'mr-4 grow': dismissible })}><slot /></div>
 	{#if dismissible}
 		<button class="font-bold" on:click={() => dispatch('dismiss')}>
@@ -24,13 +25,16 @@
 				fill="currentColor"
 				class="inline-block h-[1em] w-[1em] stroke-white hover:stroke-gray-500"
 				style="vertical-align: -0.125em;"
-				viewBox="0 0 16 16">
+				viewBox="0 0 16 16"
+			>
 				<path
 					fill-rule="evenodd"
-					d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
+					d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"
+				/>
 				<path
 					fill-rule="evenodd"
-					d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
+					d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"
+				/>
 			</svg>
 		</button>
 	{/if}

@@ -14,7 +14,7 @@
 			: [];
 </script>
 
-<div class="grid grid-rows-6 gap-1 mt-2">
+<div class="mt-2 grid grid-rows-6 gap-1">
 	{#each $guessStore as { guess, statuses }}
 		<Complete {guess} {statuses} />
 	{/each}

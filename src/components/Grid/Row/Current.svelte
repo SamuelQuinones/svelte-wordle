@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { CharValue } from '$lib/status';
+	import type { CharValue } from '$lib/status';
 
 	import { MAX_WORD_LENGTH } from '$constants/settings';
 	import Tile from '../Tile.svelte';

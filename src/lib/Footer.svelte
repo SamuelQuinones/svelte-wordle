@@ -1,5 +1,4 @@
 <script>
-	import { ABOUT_APP_MSG } from '$constants/strings';
 	import About from '../components/Modal/About.svelte';
 	const clientVersion = __version__;
 </script>

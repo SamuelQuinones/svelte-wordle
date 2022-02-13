@@ -1,7 +1,7 @@
-import { derived } from "svelte/store";
-import type { CharStatus } from "$lib/status";
-import { solution } from "$lib/words";
-import { guessStore } from "./guess";
+import { derived } from 'svelte/store';
+import type { CharStatus } from '$lib/status';
+import { solution } from '$lib/words';
+import { guessStore } from './guess';
 
 export const keyStatusStore = derived(guessStore, ($values) => {
 	const base: { [key: string]: CharStatus } = {};
