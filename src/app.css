@@ -8,6 +8,6 @@ body {
 	@apply text-black dark:bg-gray-900 dark:text-white;
 }
 
-.text-shadow {
+.text-shadow:not(.revealing) {
 	text-shadow: 1px 1px 1px #000000;
 }
