@@ -1,6 +1,4 @@
 <script lang="ts">
-	import classNames from 'classnames';
-
 	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
 
@@ -11,11 +9,12 @@
 </script>
 
 <div
-	class={classNames('toast', 'min-w-[12rem]', type, { 'justify-center': !dismissible })}
+	class="toast min-w-[12rem] {type}"
+	class:justify-center={!dismissible}
 	role="alert"
 	transition:fly={{ x: -100, duration: 300 }}
 >
-	<div class={classNames({ 'mr-4 grow': dismissible })}><slot /></div>
+	<div class:mr-4={dismissible} class:grow={dismissible}><slot /></div>
 	{#if dismissible}
 		<button class="font-bold" on:click={() => dispatch('dismiss')}>
 			<svg

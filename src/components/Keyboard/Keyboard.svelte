@@ -11,7 +11,7 @@
 
 	const onKeyDown = (e: KeyboardEvent) => {
 		const value = e.key.toUpperCase();
-		if (e.ctrlKey || e.shiftKey) return;
+		if (e.ctrlKey || e.shiftKey || e.metaKey) return;
 		if (value === 'ENTER' || value === 'RETURN') {
 			onEnter();
 		} else if (value === 'BACKSPACE' || value === 'DELETE') {
@@ -23,12 +23,12 @@
 
 	onMount(() => {
 		if (browser) {
-			window.addEventListener('keyup', onKeyDown);
+			window.addEventListener('keydown', onKeyDown);
 		}
 	});
 	onDestroy(() => {
 		if (browser) {
-			window.removeEventListener('keyup', onKeyDown);
+			window.removeEventListener('keydown', onKeyDown);
 		}
 	});
 

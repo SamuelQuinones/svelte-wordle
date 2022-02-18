@@ -1,28 +1,26 @@
 <script lang="ts">
 	import type { CharStatus } from '$lib/status';
-	import classnames from 'classnames';
 
 	export let kbKey: string;
 	export let onClick: (value: string) => void;
 	export let status: CharStatus | undefined = undefined;
-	export let heightClass: string = 'h-12';
-	export let widthClass: string = 'w-10';
+	export let heightClass = 'h-12';
+	export let widthClass = 'w-10';
 
 	const handleClick = (e: MouseEvent) => {
 		onClick(kbKey);
 		//@ts-ignore this will exist
 		e.currentTarget.blur();
 	};
-
-	const classes = classnames('keyboard-key', heightClass, widthClass, {
-		default: !status,
-		absent: status === 'absent',
-		correct: status === 'correct',
-		present: status === 'present'
-	});
 </script>
 
-<button class={classes} on:click={handleClick}>
+<button
+	class="keyboard-key {heightClass} {widthClass}"
+	class:absent={status === 'absent'}
+	class:correct={status === 'correct'}
+	class:present={status === 'present'}
+	on:click={handleClick}
+>
 	{kbKey}
 </button>
 

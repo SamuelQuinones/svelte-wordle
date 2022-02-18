@@ -5,7 +5,7 @@
 
 {#if $toastStore.length > 0}
 	<section
-		class="fixed top-7 left-0 right-0 z-[1000] mt-4 flex w-full flex-col justify-center md:top-[30%]"
+		class="fixed top-7 left-0 right-0 z-[1000] mt-4 flex w-full flex-col justify-center"
 	>
 		{#each $toastStore as toast (toast.id)}
 			<Toast
