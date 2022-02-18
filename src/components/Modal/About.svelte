@@ -9,6 +9,7 @@
 		isOpen = value;
 	};
 
+  //@ts-ignore this does exist because we set it in the kit config
 	const clientVersion = __version__;
 </script>
 
@@ -38,7 +39,7 @@
 		<a
 			href="https://github.com/SamuelQuinones/svelte-wordle"
 			target="_blank"
-			class="mb-3 mt-1 inline-block rounded-md bg-blue-200 py-1 px-2  font-bold text-blue-900 hover:bg-blue-300 focus:bg-blue-300"
+			class="mb-3 mt-1 inline-block rounded-md bg-blue-200 py-1 px-2 font-bold text-blue-900 hover:bg-blue-300 focus:bg-blue-300"
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="16"

@@ -1,5 +1,7 @@
 <script lang="ts">
 	import Modal from './Base.svelte';
+	import { browser } from '$app/env';
+	import { gameStateKey, statsKey } from '$lib/localstorage';
 
 	/** Modal Visiblity */
 	export let isOpen = false;
@@ -34,5 +36,28 @@
 	<h3 slot="header" class="text-center text-lg font-medium leading-6">Settings</h3>
 	<div slot="content" class="mt-3">
 		<h1 class="text-center text-2xl">Coming Soon...</h1>
+		{#if import.meta.env.DEV}
+			<div class="mt-6 text-center">
+				<button
+					class="mb-3 inline-block rounded-md bg-blue-200 py-1 px-2 font-bold text-blue-900 hover:bg-blue-300 focus:bg-blue-300"
+					on:click={() => {
+						browser && localStorage.removeItem(gameStateKey);
+						toggleIsOpen(false);
+					}}
+				>
+					Reset Game State
+				</button>
+        <br/>
+        <button
+					class="mb-3 inline-block rounded-md bg-blue-200 py-1 px-2 font-bold text-blue-900 hover:bg-blue-300 focus:bg-blue-300"
+					on:click={() => {
+						browser && localStorage.removeItem(statsKey);
+						toggleIsOpen(false);
+					}}
+				>
+					Reset Game Stats
+				</button>
+			</div>
+		{/if}
 	</div>
 </Modal>

@@ -3,7 +3,7 @@
 	import { fade, fly } from 'svelte/transition';
 
 	/** Modal Visiblity */
-	export let isOpen: boolean = false;
+	export let isOpen = false;
 	/** Toggle Modal visibility */
 	export let toggleIsOpen = (value: boolean) => {
 		isOpen = value;
@@ -147,10 +147,10 @@
 		@apply absolute h-full w-full bg-black bg-opacity-40 dark:bg-gray-400 dark:bg-opacity-50;
 	}
 	div.modal-dialog {
-		@apply relative z-10 w-auto shadow-lg sm:w-full sm:max-w-md;
+		@apply relative z-10 w-auto sm:w-full sm:max-w-md;
 	}
 	div.content-wrapper {
-		@apply z-20 w-full overflow-hidden rounded-md bg-white p-4 dark:bg-gray-800;
+		@apply z-20 w-full overflow-hidden rounded-md bg-white p-4 dark:bg-gray-800 shadow-lg;
 	}
 	div.modal-body {
 		@apply max-h-vh-75 overflow-auto;

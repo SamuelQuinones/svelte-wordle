@@ -1,5 +1,4 @@
 <script lang="ts">
-	import classNames from 'classnames';
 	import { countdownClock } from '$stores/countdown';
 	import { gameStateStore } from '$stores/gameState';
 	import { statStore } from '$stores/stats';
@@ -19,7 +18,7 @@
 	} from '$constants/strings';
 
 	/** Modal Visiblity */
-	export let isOpen: boolean = false;
+	export let isOpen = false;
 	/** Toggle Modal visibility */
 	export let toggleIsOpen = (value: boolean) => {
 		isOpen = value;
@@ -100,14 +99,13 @@
 			<section class="m-2 text-sm">
 				{#each $statStore.winDistribution as win, i}
 					<div class="m-1 flex">
-						<div class="grow-0">{i + 1}</div>
+						<div class="w-2">{i + 1}</div>
 						<div class="ml-2 grow">
 							<div
-								style={`width: ${(win / maxValue) * 90 + 5}%`}
-								class={classNames('grow bg-sky-600 text-white dark:bg-blue-600', {
-									'rounded-full': win > 0,
-									'rounded-l-full': win === 0
-								})}
+								style={`width: ${isNaN(win / maxValue) ? 5 : (win / maxValue) * 90 + 5}%`}
+								class="grow bg-sky-600 text-white"
+								class:rounded-full={win > 0}
+								class:rounded-l-full={win === 0}
 							>
 								{win}
 							</div>
