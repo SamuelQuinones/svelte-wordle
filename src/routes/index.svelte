@@ -4,9 +4,9 @@
 	import { isWinningWord, isWordInWordList, solution } from '$lib/words';
 	import { saveGameToLocalStorage } from '$lib/localstorage';
 	import { MAX_CHALLENGES, MAX_WORD_LENGTH } from '../constants/settings';
-	import Keyboard from '../components/Keyboard/index.svelte';
-	import Grid from '../components/Grid/Grid.svelte';
-	import { toastStore } from '../components/Toast/store';
+	import Keyboard from '$components/Keyboard/Keyboard.svelte';
+	import Grid from '$components/Grid/Grid.svelte';
+	import { toastStore } from '$components/Toast/store';
 	import { statStore } from '$stores/stats';
 	import { guessStore } from '$stores/guess';
 	import { gameStateStore } from '$stores/gameState';
@@ -129,6 +129,7 @@
 <main class="flex grow flex-col items-center justify-center">
 	<Grid {currentGuess} />
 </main>
+<!-- Do i need this div? -->
 <div>
 	<Keyboard {onChar} {onDelete} {onEnter} />
 </div>

@@ -21,7 +21,8 @@ const config = {
 				alias: {
 					$lib: path.resolve('src/lib/'),
 					$stores: path.resolve('src/stores/'),
-					$constants: path.resolve('src/constants/')
+					$constants: path.resolve('src/constants/'),
+					$components: path.resolve('src/components/')
 				}
 			}
 		}

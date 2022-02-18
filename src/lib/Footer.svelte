@@ -1,5 +1,6 @@
 <script>
-	import About from '../components/Modal/About.svelte';
+	import About from '$components/Modal/About.svelte';
+  //@ts-ignore this does exist because we set it in the kit config
 	const clientVersion = __version__;
 </script>
 

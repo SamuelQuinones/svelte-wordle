@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Settings from '../../components/Modal/Settings.svelte';
-	import Help from '../../components/Modal/Help.svelte';
-	import StatsModal from '../../components/Modal/Stats.svelte';
+	import Settings from '$components/Modal/Settings.svelte';
+	import Help from '$components/Modal/Help.svelte';
+	import StatsModal from '$components/Modal/Stats.svelte';
 	import { statsModalState, helpModalState, settingsModalState } from './store';
 	import ThemeSwitch from '$lib/Theme/Switch.svelte';
 	import { GAME_TITLE } from '$constants/strings';
