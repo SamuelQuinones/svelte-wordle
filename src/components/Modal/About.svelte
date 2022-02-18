@@ -9,7 +9,7 @@
 		isOpen = value;
 	};
 
-  //@ts-ignore this does exist because we set it in the kit config
+	//@ts-ignore this does exist because we set it in the kit config
 	const clientVersion = __version__;
 </script>
 

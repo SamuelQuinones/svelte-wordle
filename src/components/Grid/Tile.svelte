@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { CharStatus } from '$lib/status';
 	import { backOut, linear } from 'svelte/easing';
-	import { scale, fly } from 'svelte/transition';
+	import { scale } from 'svelte/transition';
 
 	export let letter: string | undefined = undefined;
 	export let status: CharStatus | undefined = undefined;
@@ -33,8 +33,8 @@
 	};
 
 	const animate = (node: HTMLElement, args: any): any => {
-		if (!!status) return flip(node, { delay, duration: 500, degrees: args.degrees });
-		if (!!letter) return scale(node, { start: 0.9, opacity: 1, easing: backOut });
+		if (status) return flip(node, { delay, duration: 500, degrees: args.degrees });
+		if (letter) return scale(node, { start: 0.9, opacity: 1, easing: backOut });
 	};
 </script>
 
@@ -49,12 +49,12 @@
 	class:present={status === 'present'}
 	in:animate
 	on:introstart={(e) => {
-		if (!!status) {
+		if (status) {
 			e.currentTarget.classList.add('revealing');
 		}
 	}}
 	on:introend={(e) => {
-		if (!!status) {
+		if (status) {
 			e.currentTarget.classList.remove('revealing');
 		}
 	}}

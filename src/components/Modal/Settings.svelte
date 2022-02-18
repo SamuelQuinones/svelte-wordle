@@ -47,8 +47,8 @@
 				>
 					Reset Game State
 				</button>
-        <br/>
-        <button
+				<br />
+				<button
 					class="mb-3 inline-block rounded-md bg-blue-200 py-1 px-2 font-bold text-blue-900 hover:bg-blue-300 focus:bg-blue-300"
 					on:click={() => {
 						browser && localStorage.removeItem(statsKey);
