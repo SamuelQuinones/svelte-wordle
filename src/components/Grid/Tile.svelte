@@ -1,24 +1,68 @@
 <script lang="ts">
 	import type { CharStatus } from '$lib/status';
-	import classNames from 'classnames';
+	import { backOut, linear } from 'svelte/easing';
+	import { scale, fly } from 'svelte/transition';
 
 	export let letter: string | undefined = undefined;
 	export let status: CharStatus | undefined = undefined;
-	export let heightClass: string = 'h-16';
-	export let widthClass: string = 'w-16';
+	export let heightClass = 'h-16';
+	export let widthClass = 'w-16';
+	export let delay = 1;
 
-	const classes = classNames('game-cell', heightClass, widthClass, {
-		'border-black dark:border-white': !!letter,
-		'dark:border-slate-600': !letter,
-		default: !status,
-		'text-shadow': !!status,
-		absent: status === 'absent',
-		present: status === 'present',
-		correct: status === 'correct'
-	});
+	const flip = (
+		node: HTMLElement,
+		{ degrees = 180, duration = 400, delay = 0, changeBg = true }
+	) => {
+		const style = getComputedStyle(node);
+		const transform = style.transform === 'none' ? '' : style.transform;
+		return {
+			duration,
+			delay,
+			css: (t: any) => {
+				const eased = linear(t);
+				if (!changeBg) return `transform: ${transform} rotateX(${eased * degrees}deg);`;
+				if (t >= 0.5) {
+					return `transform: ${transform} rotateX(${eased * degrees}deg); --tw-bg-opacity: ${
+						t * 1
+					}; color: white;`;
+				} else {
+					return `transform: ${transform} rotateX(${eased * degrees}deg); --tw-bg-opacity: 0`;
+				}
+			}
+		};
+	};
+
+	const animate = (node: HTMLElement, args: any): any => {
+		if (!!status) return flip(node, { delay, duration: 500, degrees: args.degrees });
+		if (!!letter) return scale(node, { start: 0.9, opacity: 1, easing: backOut });
+	};
 </script>
 
-<div class={classes}>{letter ?? ''}</div>
+<div
+	class="game-cell {heightClass} {widthClass}"
+	class:dark:border-white={!!letter}
+	class:border-black={!!letter}
+	class:text-shadow={!!status}
+	class:dark:border-slate-600={!letter}
+	class:absent={status === 'absent'}
+	class:correct={status === 'correct'}
+	class:present={status === 'present'}
+	in:animate
+	on:introstart={(e) => {
+		if (!!status) {
+			e.currentTarget.classList.add('revealing');
+		}
+	}}
+	on:introend={(e) => {
+		if (!!status) {
+			e.currentTarget.classList.remove('revealing');
+		}
+	}}
+>
+	<div in:animate={{ changeBg: false, degrees: -180 }} class="letter-wrapper">
+		{letter ?? ''}
+	</div>
+</div>
 
 <style lang="postcss" global>
 	.game-cell {
@@ -32,5 +76,8 @@
 	}
 	.game-cell.absent {
 		@apply border-slate-400 bg-slate-400 text-white dark:border-slate-700 dark:bg-slate-700;
+	}
+	.game-cell.revealing {
+		@apply !border-black !text-black dark:!border-white dark:!text-white;
 	}
 </style>

@@ -8,6 +8,6 @@
 
 <div class="grid grid-cols-5 gap-1">
 	{#each guess as letter, i (`${letter}${statuses[i]}${i}`)}
-		<Tile {letter} status={statuses[i]} />
+		<Tile {letter} status={statuses[i]} delay={i * 200} />
 	{/each}
 </div>
