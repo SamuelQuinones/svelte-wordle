@@ -6,7 +6,7 @@ type StoredGameState = {
 	solution?: string;
 };
 
-const gameStateKey = 'gameState';
+export const gameStateKey = 'gameState';
 
 export const saveGameToLocalStorage = (gameState: StoredGameState) => {
 	localStorage.setItem(gameStateKey, JSON.stringify(gameState));
@@ -34,7 +34,7 @@ export type GameStats = {
 	successRate: number;
 };
 
-const statsKey = 'gameStats';
+export const statsKey = 'gameStats';
 
 export const defaultStats: GameStats = {
 	winDistribution: Array.from(new Array(MAX_CHALLENGES), () => 0),
