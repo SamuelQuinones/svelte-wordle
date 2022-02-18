@@ -7,6 +7,7 @@ module.exports = {
 	rules: {
 		'no-empty': ['warn', { allowEmptyCatch: true }],
 		'@typescript-eslint/no-empty-interface': 'off',
+		'@typescript-eslint/no-explicit-any': 'off',
 		'@typescript-eslint/ban-ts-comment': [
 			'error',
 			{
