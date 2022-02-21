@@ -10,7 +10,12 @@
 	import { statStore } from '$stores/stats';
 	import { guessStore } from '$stores/guess';
 	import { gameStateStore } from '$stores/gameState';
-	import { helpModalState, settingsModalState, statsModalState } from '$lib/Header/store';
+	import {
+		aboutModalState,
+		helpModalState,
+		settingsModalState,
+		statsModalState
+	} from '$stores/modals';
 	import {
 		CORRECT_WORD_MSG,
 		INVALID_WORD_MSG,
@@ -19,8 +24,6 @@
 	} from '$constants/strings';
 
 	let currentGuess: CharValue[] = [];
-	// let gameWon: boolean = false;
-	// let gameLost: boolean = false;
 
 	// consider moving into onMount function
 	// GAME WON
@@ -69,7 +72,7 @@
 	};
 	const onEnter = () => {
 		//* if modals are open
-		if ($statsModalState || $helpModalState || $settingsModalState) {
+		if ($statsModalState || $helpModalState || $settingsModalState || $aboutModalState) {
 			return;
 		}
 		//* if the game is over
@@ -95,7 +98,7 @@
 			return;
 		}
 		const winningWord = isWinningWord(currentGuess.join(''));
-		// TODO: add check for game not won
+
 		if ($guessStore.length < MAX_CHALLENGES && !$gameStateStore.gameWon) {
 			guessStore.addGuess(currentGuess);
 			currentGuess = [];
@@ -127,7 +130,7 @@
 </svelte:head>
 
 <main class="flex grow flex-col items-center justify-center">
-	<Grid {currentGuess} />
+	<Grid {currentGuess} allGuesses={$guessStore} />
 </main>
 <!-- Do i need this div? -->
 <div>
