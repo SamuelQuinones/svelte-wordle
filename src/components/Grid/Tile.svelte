@@ -39,7 +39,7 @@
 </script>
 
 <div
-	class="game-cell {heightClass} {widthClass}"
+	class="game-tile {heightClass} {widthClass}"
 	class:dark:border-white={!!letter}
 	class:border-black={!!letter}
 	class:text-shadow={!!status}
@@ -65,19 +65,19 @@
 </div>
 
 <style lang="postcss" global>
-	.game-cell {
+	.game-tile {
 		@apply flex select-none items-center justify-center rounded border-2 text-4xl font-bold;
 	}
-	.game-cell.present {
+	.game-tile.present {
 		@apply border-yellow-500 bg-yellow-500 text-white dark:border-yellow-500 dark:bg-yellow-500;
 	}
-	.game-cell.correct {
+	.game-tile.correct {
 		@apply border-green-600 bg-green-600 text-white dark:border-green-600 dark:bg-green-600;
 	}
-	.game-cell.absent {
+	.game-tile.absent {
 		@apply border-slate-400 bg-slate-400 text-white dark:border-slate-700 dark:bg-slate-700;
 	}
-	.game-cell.revealing {
+	.game-tile.revealing {
 		@apply !border-black !text-black dark:!border-white dark:!text-white;
 	}
 </style>
