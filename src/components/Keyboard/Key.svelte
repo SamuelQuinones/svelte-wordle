@@ -32,7 +32,7 @@
 		@apply bg-slate-400 text-white hover:bg-slate-400 dark:bg-slate-800 dark:hover:bg-slate-800;
 	}
 	.keyboard-key.correct {
-		@apply bg-green-500 text-white hover:bg-green-500;
+		@apply bg-green-600 text-white hover:bg-green-600;
 	}
 	.keyboard-key.present {
 		@apply bg-yellow-500 text-white hover:bg-yellow-500;
