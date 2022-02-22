@@ -1,9 +1,13 @@
 import { browser } from '$app/env';
-import { loadStatsFromLocalStorate, saveStatsToLocalStorage } from '$lib/localstorage';
+import {
+	defaultStats,
+	loadStatsFromLocalStorate,
+	saveStatsToLocalStorage
+} from '$lib/localstorage';
 import { writable } from 'svelte/store';
 
 const createStatStore = () => {
-	const { subscribe, update } = writable(loadStatsFromLocalStorate());
+	const { subscribe, update, set } = writable(loadStatsFromLocalStorate());
 
 	const addStatsForCompletedGame = (count: number, didWin: boolean) => {
 		update((gameStats) => {
@@ -37,7 +41,8 @@ const createStatStore = () => {
 
 	return {
 		subscribe,
-		addStatsForCompletedGame
+		addStatsForCompletedGame,
+		reset: () => set(defaultStats)
 	};
 };
 export const statStore = createStatStore();

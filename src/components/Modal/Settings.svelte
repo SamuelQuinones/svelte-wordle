@@ -2,6 +2,8 @@
 	import Modal from './Base.svelte';
 	import { browser } from '$app/env';
 	import { gameStateKey, statsKey } from '$lib/localstorage';
+	import { guessStore } from '$stores/guess';
+import { statStore } from '$stores/stats';
 
 	/** Modal Visiblity */
 	export let isOpen = false;
@@ -42,6 +44,7 @@
 					class="mb-3 inline-block rounded-md bg-blue-200 py-1 px-2 font-bold text-blue-900 hover:bg-blue-300 focus:bg-blue-300"
 					on:click={() => {
 						browser && localStorage.removeItem(gameStateKey);
+						guessStore.reset();
 						toggleIsOpen(false);
 					}}
 				>
@@ -52,6 +55,7 @@
 					class="mb-3 inline-block rounded-md bg-blue-200 py-1 px-2 font-bold text-blue-900 hover:bg-blue-300 focus:bg-blue-300"
 					on:click={() => {
 						browser && localStorage.removeItem(statsKey);
+            statStore.reset();
 						toggleIsOpen(false);
 					}}
 				>
