@@ -33,7 +33,9 @@
 	};
 
 	const animate = (node: HTMLElement, args: any): any => {
-		if (status) return flip(node, { delay, duration: 500, degrees: args.degrees });
+		if (status) {
+			return flip(node, { delay, duration: 500, degrees: args.degrees, changeBg: args.changeBg });
+		}
 		if (letter) return scale(node, { start: 0.9, opacity: 1, easing: backOut });
 	};
 </script>
