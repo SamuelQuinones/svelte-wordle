@@ -7,7 +7,11 @@
 	import Empty from './Row/Empty.svelte';
 
 	export let currentGuess: CharValue[];
-  /** Same type as Guess from `$stores/guess` */
+	/**
+	 * Same type as Guess from `$stores/guess`
+	 *
+   * can alternatively use the `guessStore` here directly as opposed to making it a prop
+	 */
 	export let allGuesses: { guess: CharValue[]; statuses: CharStatus[] }[];
 
 	$: empties =
