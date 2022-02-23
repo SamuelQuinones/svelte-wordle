@@ -49,10 +49,10 @@
 		{/each}
 	</section>
 	<section class="flex justify-center">
-		<Key kbKey={ENTER_TEXT} onClick={onEnter} widthClass="w-16" />
+		<Key kbKey={ENTER_TEXT} onClick={onEnter} widthClass="w-[4.5rem]" />
 		{#each rowThree as kbKey (`${kbKey}${$keyStatusStore[kbKey]}`)}
 			<Key {kbKey} onClick={onChar} status={$keyStatusStore[kbKey]} />
 		{/each}
-		<Key kbKey={DELETE_TEXT} onClick={onDelete} widthClass="w-16" />
+		<Key kbKey={DELETE_TEXT} onClick={onDelete} widthClass="w-[4.5rem]" />
 	</section>
 </div>

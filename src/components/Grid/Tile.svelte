@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { CELL_ANIMATION_DURATION } from '$constants/settings';
 	import type { CharStatus } from '$lib/status';
-	import { backOut, linear } from 'svelte/easing';
+	import { rotateX } from '$lib/transition';
+	import { backOut } from 'svelte/easing';
 	import { scale } from 'svelte/transition';
 
 	export let letter: string | undefined = undefined;
@@ -9,32 +11,14 @@
 	export let widthClass = 'w-16';
 	export let delay = 1;
 
-	const flip = (
-		node: HTMLElement,
-		{ degrees = 180, duration = 400, delay = 0, changeBg = true }
-	) => {
-		const style = getComputedStyle(node);
-		const transform = style.transform === 'none' ? '' : style.transform;
-		return {
-			duration,
-			delay,
-			css: (t: any) => {
-				const eased = linear(t);
-				if (!changeBg) return `transform: ${transform} rotateX(${eased * degrees}deg);`;
-				if (t >= 0.5) {
-					return `transform: ${transform} rotateX(${eased * degrees}deg); --tw-bg-opacity: ${
-						t * 1
-					}; color: white;`;
-				} else {
-					return `transform: ${transform} rotateX(${eased * degrees}deg); --tw-bg-opacity: 0`;
-				}
-			}
-		};
-	};
-
 	const animate = (node: HTMLElement, args: any): any => {
 		if (status) {
-			return flip(node, { delay, duration: 500, degrees: args.degrees, changeBg: args.changeBg });
+			return rotateX(node, {
+				delay,
+				duration: CELL_ANIMATION_DURATION,
+				degrees: args.degrees,
+				changeBg: args.changeBg
+			});
 		}
 		if (letter) return scale(node, { start: 0.9, opacity: 1, easing: backOut });
 	};

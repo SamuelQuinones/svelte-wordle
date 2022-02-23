@@ -1,16 +1,23 @@
 <script lang="ts">
+	import { CELL_ANIMATION_DURATION, KEYBOARD_DELAY } from '$constants/settings';
 	import type { CharStatus } from '$lib/status';
+	import { dummy } from '$lib/transition';
 
 	export let kbKey: string;
 	export let onClick: (value: string) => void;
 	export let status: CharStatus | undefined = undefined;
-	export let heightClass = 'h-12';
-	export let widthClass = 'w-10';
+	export let heightClass = 'h-14';
+	export let widthClass = 'w-12';
 
 	const handleClick = (e: MouseEvent) => {
 		onClick(kbKey);
 		//@ts-ignore this will exist
 		e.currentTarget.blur();
+	};
+	const animate = (node: HTMLElement, _args: any): any => {
+		if (!!status) {
+			return dummy(node, { duration: CELL_ANIMATION_DURATION, delay: KEYBOARD_DELAY });
+		}
 	};
 </script>
 
@@ -20,6 +27,17 @@
 	class:correct={status === 'correct'}
 	class:present={status === 'present'}
 	on:click={handleClick}
+	in:animate
+	on:introstart={(e) => {
+		if (!!status) {
+			e.currentTarget.classList.add('revealing');
+		}
+	}}
+	on:introend={(e) => {
+		if (!!status) {
+			e.currentTarget.classList.remove('revealing');
+		}
+	}}
 >
 	{kbKey}
 </button>
@@ -36,5 +54,8 @@
 	}
 	.keyboard-key.present {
 		@apply bg-yellow-500 text-white hover:bg-yellow-500;
+	}
+	.keyboard-key.revealing {
+		@apply !text-black hover:!bg-slate-300 dark:!bg-slate-600 dark:!text-white dark:hover:!bg-slate-700;
 	}
 </style>
