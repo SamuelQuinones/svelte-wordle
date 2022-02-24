@@ -27,7 +27,7 @@ export const generateEmojiGrid = () => {
 
 export const shareStatus = (lost: boolean) => {
 	navigator.clipboard.writeText(
-		`${GAME_TITLE} ${solutionIndex} ${
+		`${GAME_TITLE} ${solutionIndex + 1} ${
 			lost ? 'X' : get(guessStore).length
 		}/${MAX_CHALLENGES}\n\n${generateEmojiGrid()}\n\nhttps://word.samtheq.com`
 	);
