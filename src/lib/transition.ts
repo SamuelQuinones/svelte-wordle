@@ -13,11 +13,9 @@ export const rotateX = (
 			const eased = linear(t);
 			if (!changeBg) return `transform: ${transform} rotateX(${eased * degrees}deg);`;
 			if (t >= 0.5) {
-				return `transform: ${transform} rotateX(${eased * degrees}deg); --tw-bg-opacity: ${
-					t * 1
-				}; color: white;`;
+				return `transform: ${transform} rotateX(${eased * degrees}deg); color: white;`;
 			} else {
-				return `transform: ${transform} rotateX(${eased * degrees}deg); --tw-bg-opacity: 0`;
+				return `transform: ${transform} rotateX(${eased * degrees}deg); background-color: transparent;`;
 			}
 		}
 	};

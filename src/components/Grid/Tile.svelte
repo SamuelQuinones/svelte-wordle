@@ -20,7 +20,7 @@
 				changeBg: args.changeBg
 			});
 		}
-		if (letter) return scale(node, { start: 0.9, opacity: 1, easing: backOut });
+		if (letter) return scale(node, { start: 0.9, opacity: 1, easing: backOut, duration: 200 });
 	};
 </script>
 

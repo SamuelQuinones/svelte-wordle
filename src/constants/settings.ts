@@ -1,5 +1,5 @@
 export const MAX_WORD_LENGTH = 5;
 export const MAX_CHALLENGES = 6;
 export const CELL_ANIMATION_DURATION = 500;
-export const CELL_ANIMATION_DELAY = 200;
+export const CELL_ANIMATION_DELAY = 300;
 export const KEYBOARD_DELAY = CELL_ANIMATION_DELAY * (MAX_WORD_LENGTH - 1);
