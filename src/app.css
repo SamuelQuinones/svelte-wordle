@@ -4,10 +4,10 @@
 
 html,
 body {
-	height: 100%;
-	@apply text-black dark:bg-gray-900 dark:text-white;
+  height: 100%;
+  @apply text-black dark:bg-gray-900 dark:text-white;
 }
 
 .text-shadow:not(.revealing) {
-	text-shadow: 1px 1px 1px #000000;
+  text-shadow: 1px 1px 1px #000000;
 }

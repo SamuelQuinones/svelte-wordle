@@ -1,12 +1,12 @@
 export const GAME_TITLE = 'Svordle';
 
 export const WIN_MESSAGES = [
-	'Absolute mad lad',
-	'Expertly done!',
-	'Great job!',
-	'well done',
-	'Call it a comeback!',
-	'Phew, nice work!'
+  'Absolute mad lad',
+  'Expertly done!',
+  'Great job!',
+  'well done',
+  'Call it a comeback!',
+  'Phew, nice work!'
 ];
 export const SCORE_COPIED_MSG = 'Score copied to clipboard';
 export const COPY_ERROR = 'Unable to copy score to clipboard';
