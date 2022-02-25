@@ -4,6 +4,7 @@
   import { gameStateKey, statsKey } from '$lib/localstorage';
   import { guessStore } from '$stores/guess';
   import { statStore } from '$stores/stats';
+  import { gameStateStore } from '$stores/gameState';
 
   /** Modal Visiblity */
   export let isOpen = false;
@@ -45,6 +46,8 @@
           on:click={() => {
             browser && localStorage.removeItem(gameStateKey);
             guessStore.reset();
+            gameStateStore.setGameLost(false);
+            gameStateStore.setGameWon(false);
             toggleIsOpen(false);
           }}
         >
