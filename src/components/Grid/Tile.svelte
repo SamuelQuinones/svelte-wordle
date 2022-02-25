@@ -64,6 +64,6 @@
     @apply border-slate-400 bg-slate-400 text-white dark:border-slate-700 dark:bg-slate-700;
   }
   .game-tile.revealing {
-    @apply !border-black !text-black dark:!border-white dark:!text-white;
+    @apply !border-black text-black dark:!border-white dark:!text-white;
   }
 </style>

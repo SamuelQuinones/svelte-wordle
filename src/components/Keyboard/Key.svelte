@@ -29,12 +29,12 @@
   on:click={handleClick}
   in:animate
   on:introstart={(e) => {
-    if (!!status) {
+    if (status) {
       e.currentTarget.classList.add('revealing');
     }
   }}
   on:introend={(e) => {
-    if (!!status) {
+    if (status) {
       e.currentTarget.classList.remove('revealing');
     }
   }}
@@ -56,6 +56,6 @@
     @apply bg-yellow-500 text-white hover:bg-yellow-500;
   }
   .keyboard-key.revealing {
-    @apply !text-black hover:!bg-slate-300 dark:!bg-slate-600 dark:!text-white dark:hover:!bg-slate-700;
+    @apply !bg-slate-200 !text-black hover:!bg-slate-300 dark:!bg-slate-600 dark:!text-white dark:hover:!bg-slate-700;
   }
 </style>
