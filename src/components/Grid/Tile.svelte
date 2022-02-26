@@ -26,10 +26,10 @@
 
 <div
   class="game-tile {heightClass} {widthClass}"
-  class:dark:border-white={!!letter}
-  class:border-black={!!letter}
-  class:text-shadow={!!status}
   class:dark:border-slate-600={!letter}
+  class:dark:border-white={!!letter && !status}
+  class:border-black={!!letter && !status}
+  class:text-shadow={!!status}
   class:absent={status === 'absent'}
   class:correct={status === 'correct'}
   class:present={status === 'present'}
@@ -54,14 +54,14 @@
   .game-tile {
     @apply flex select-none items-center justify-center rounded border-2 text-4xl font-bold;
   }
-  .game-tile.present {
-    @apply border-yellow-500 bg-yellow-500 text-white dark:border-yellow-500 dark:bg-yellow-500;
-  }
-  .game-tile.correct {
-    @apply border-green-600 bg-green-600 text-white dark:border-green-600 dark:bg-green-600;
-  }
   .game-tile.absent {
     @apply border-slate-400 bg-slate-400 text-white dark:border-slate-700 dark:bg-slate-700;
+  }
+  .game-tile.present {
+    @apply border-yellow-500 bg-yellow-500 text-white high-contrast:bg-orange-500 high-contrast:border-orange-500;
+  }
+  .game-tile.correct {
+    @apply border-green-600 bg-green-600 text-white high-contrast:bg-cyan-500 high-contrast:border-cyan-500;
   }
   .game-tile.revealing {
     @apply !border-black text-black dark:!border-white dark:!text-white;

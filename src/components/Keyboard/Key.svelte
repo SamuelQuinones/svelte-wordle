@@ -50,10 +50,10 @@
     @apply bg-slate-400 text-white hover:bg-slate-400 dark:bg-slate-800 dark:hover:bg-slate-800;
   }
   .keyboard-key.correct {
-    @apply bg-green-600 text-white hover:bg-green-600;
+    @apply bg-green-600 text-white hover:bg-green-600 high-contrast:bg-orange-500 high-contrast:hover:bg-orange-600;
   }
   .keyboard-key.present {
-    @apply bg-yellow-500 text-white hover:bg-yellow-500;
+    @apply bg-yellow-500 text-white hover:bg-yellow-500 high-contrast:bg-cyan-500 high-contrast:hover:bg-cyan-500;
   }
   .keyboard-key.revealing {
     @apply !bg-slate-200 !text-black hover:!bg-slate-300 dark:!bg-slate-600 dark:!text-white dark:hover:!bg-slate-700;
