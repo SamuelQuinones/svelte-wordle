@@ -1,17 +1,6 @@
 <script lang="ts">
-  import { browser } from '$app/env';
   import { fly } from 'svelte/transition';
   import { darkModeStore } from './store';
-
-  $: if (browser) {
-    if ($darkModeStore) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }
 </script>
 
 <label

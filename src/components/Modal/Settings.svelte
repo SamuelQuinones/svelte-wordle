@@ -5,6 +5,7 @@
   import { guessStore } from '$stores/guess';
   import { statStore } from '$stores/stats';
   import { gameStateStore } from '$stores/gameState';
+  import HighContrastSwitch from '$lib/Theme/HighContrast.svelte';
 
   /** Modal Visiblity */
   export let isOpen = false;
@@ -37,8 +38,8 @@
 
 <Modal {isOpen} {toggleIsOpen}>
   <h3 slot="header" class="text-center text-lg font-medium leading-6">Settings</h3>
-  <div slot="content" class="mt-3">
-    <h1 class="text-center text-2xl">Coming Soon...</h1>
+  <div slot="content" class="mt-3 mx-2">
+    <HighContrastSwitch />
     {#if import.meta.env.DEV}
       <div class="mt-6 text-center">
         <button
