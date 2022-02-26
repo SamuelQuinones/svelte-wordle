@@ -147,7 +147,7 @@
     @apply absolute h-full w-full bg-black bg-opacity-40 dark:bg-gray-400 dark:bg-opacity-50;
   }
   div.modal-dialog {
-    @apply relative z-10 w-auto sm:w-full sm:max-w-md;
+    @apply relative z-10 w-full sm:max-w-md;
   }
   div.content-wrapper {
     @apply z-20 w-full overflow-hidden rounded-md bg-white p-4 shadow-lg dark:bg-gray-800;
