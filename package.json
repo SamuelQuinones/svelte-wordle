@@ -1,8 +1,12 @@
 {
   "name": "svelte-wordle",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "homepage": "https://word.samtheq.com",
+  "author": {
+    "name": "Samuel Quinones",
+    "email": "samuelquinones@samtheq.com"
+  },
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
