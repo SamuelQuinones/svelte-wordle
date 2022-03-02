@@ -58,10 +58,10 @@
     @apply border-slate-400 bg-slate-400 text-white dark:border-slate-700 dark:bg-slate-700;
   }
   .game-tile.present {
-    @apply border-yellow-500 bg-yellow-500 text-white high-contrast:bg-orange-500 high-contrast:border-orange-500;
+    @apply border-yellow-500 bg-yellow-500 text-white high-contrast:border-cyan-500 high-contrast:bg-cyan-500;
   }
   .game-tile.correct {
-    @apply border-green-600 bg-green-600 text-white high-contrast:bg-cyan-500 high-contrast:border-cyan-500;
+    @apply border-green-600 bg-green-600 text-white high-contrast:border-orange-500 high-contrast:bg-orange-500;
   }
   .game-tile.revealing {
     @apply !border-black text-black dark:!border-white dark:!text-white;
