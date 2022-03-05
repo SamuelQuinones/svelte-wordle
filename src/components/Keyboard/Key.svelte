@@ -47,7 +47,7 @@
     @apply m-0.5 flex touch-manipulation select-none items-center justify-center rounded bg-slate-200 text-xs font-bold uppercase text-black hover:bg-slate-300 dark:bg-slate-600 dark:text-white dark:hover:bg-slate-700 md:text-base;
   }
   .keyboard-key.absent {
-    @apply bg-slate-400 text-white hover:bg-slate-400 dark:bg-slate-800 dark:hover:bg-slate-800;
+    @apply bg-slate-500 text-white hover:bg-slate-500 dark:bg-slate-800 dark:hover:bg-slate-800;
   }
   .keyboard-key.correct {
     @apply bg-green-600 text-white hover:bg-green-600 high-contrast:bg-orange-500 high-contrast:hover:bg-orange-600;

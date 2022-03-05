@@ -55,7 +55,7 @@
     @apply flex select-none items-center justify-center rounded border-2 text-4xl font-bold;
   }
   .game-tile.absent {
-    @apply border-slate-400 bg-slate-400 text-white dark:border-slate-700 dark:bg-slate-700;
+    @apply border-slate-500 bg-slate-500 text-white dark:border-slate-700 dark:bg-slate-700;
   }
   .game-tile.present {
     @apply border-yellow-500 bg-yellow-500 text-white high-contrast:border-cyan-500 high-contrast:bg-cyan-500;
