@@ -3,23 +3,21 @@
   import Help from '$components/Modal/Help.svelte';
   import StatsModal from '$components/Modal/Stats.svelte';
   import { statsModalState, helpModalState, settingsModalState } from '$stores/modals';
-  import DarkModeSwitch from '$lib/Theme/DarkMode.svelte';
   import { GAME_TITLE } from '$constants/strings';
   import {
     darkModeStore,
     highContrastStore,
     watchDarkMode,
     watchHighContrast
-  } from './Theme/store';
+  } from '$stores/theme';
 
   $: watchDarkMode($darkModeStore);
   $: watchHighContrast($highContrastStore);
 </script>
 
 <header class="flex grow-0 items-center justify-between border-b-2 pb-1">
-  <div class="flex items-center justify-center">
+  <div class="flex items-center justify-center mr-10">
     <Help isOpen={$helpModalState} toggleIsOpen={helpModalState.set} />
-    <DarkModeSwitch />
   </div>
   <h1 class="text-2xl font-semibold md:text-4xl">{GAME_TITLE}</h1>
   <div class="flex items-center justify-center">
