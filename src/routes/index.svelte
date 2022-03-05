@@ -3,7 +3,12 @@
   import type { CharValue } from '$lib/status';
   import { isWinningWord, isWordInWordList, solution } from '$lib/words';
   import { saveGameToLocalStorage } from '$lib/localstorage';
-  import { KEYBOARD_DELAY, MAX_CHALLENGES, MAX_WORD_LENGTH } from '../constants/settings';
+  import {
+    CELL_ANIMATION_DURATION,
+    KEYBOARD_DELAY,
+    MAX_CHALLENGES,
+    MAX_WORD_LENGTH
+  } from '../constants/settings';
   import Keyboard from '$components/Keyboard/Keyboard.svelte';
   import Grid from '$components/Grid/Grid.svelte';
   import { toastStore } from '$components/Toast/store';
@@ -34,7 +39,7 @@
       id: 'wintoast',
       timeout: 2000
     });
-    setTimeout(() => statsModalState.set(true), KEYBOARD_DELAY);
+    setTimeout(() => statsModalState.set(true), KEYBOARD_DELAY + CELL_ANIMATION_DURATION);
   }
   // GAME LOST
   $: if ($gameStateStore.gameLost) {
@@ -45,7 +50,7 @@
       id: 'losetoast',
       timeout: 2000
     });
-    setTimeout(() => statsModalState.set(true), KEYBOARD_DELAY);
+    setTimeout(() => statsModalState.set(true), KEYBOARD_DELAY + CELL_ANIMATION_DURATION);
   }
   $: if (browser) {
     saveGameToLocalStorage({
