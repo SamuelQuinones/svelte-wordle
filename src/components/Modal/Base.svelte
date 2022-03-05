@@ -1,5 +1,6 @@
 <script lang="ts">
   // https://github.com/hnakamur/svelte-modal-example/blob/main/src/lib/Modal.svelte
+  import { spring } from 'svelte/motion';
   import { fade, fly } from 'svelte/transition';
 
   /** Modal Visiblity */
@@ -14,6 +15,8 @@
   let modalNode: HTMLElement;
   let ignoresFocusChange: boolean;
   let lastFocus: Element | null;
+
+  const scale = spring(1);
 
   const modalAction = (node: HTMLElement) => {
     const focusableCandidateSelectors =
@@ -75,7 +78,7 @@
     const keydown = (e: KeyboardEvent) => {
       e.stopPropagation();
       if (e.key === 'Escape') {
-        close();
+        toggleIsOpen(false)
       }
     };
 
@@ -88,6 +91,7 @@
     document.addEventListener('focus', trapFocus, true);
     node.addEventListener('keydown', keydown);
     focusFirstDescendant(node);
+    // node.focus();
     return {
       destroy: () => {
         document.body.style.overflow = original;
@@ -108,8 +112,12 @@
         <div class="modal-header">
           <slot name="header" />
           <button
-            class="absolute top-0 right-0 font-bold hover:text-gray-500 focus:text-gray-500 dark:hover:text-slate-400 dark:focus:text-slate-400"
+            class="absolute -top-1 -right-1 font-bold hover:text-gray-500 focus:text-gray-500 dark:hover:text-slate-400 dark:focus:text-slate-400"
             on:click={() => toggleIsOpen(false)}
+            on:mousedown={() => scale.set(0.8)}
+            on:mouseup={() => scale.set(1)}
+            on:mouseenter={() => scale.set(1.3)}
+            on:mouseleave={() => scale.set(1)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -117,7 +125,7 @@
               height="16"
               fill="currentColor"
               class="inline-block h-6 w-6 hover:text-gray-500"
-              style="vertical-align: -0.125em;"
+              style="vertical-align: -0.125em; transform: scale({$scale});"
               viewBox="0 0 16 16"
             >
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />

@@ -1,11 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
+  import { spring } from 'svelte/motion';
   import { fly } from 'svelte/transition';
-
-  const dispatch = createEventDispatcher();
 
   export let dismissible = true;
   export let type = 'success';
+
+  const dispatch = createEventDispatcher();
+  const scale = spring(1);
 </script>
 
 <div
@@ -16,14 +18,21 @@
 >
   <div class:mr-4={dismissible} class:grow={dismissible}><slot /></div>
   {#if dismissible}
-    <button class="font-bold" on:click={() => dispatch('dismiss')}>
+    <button
+      class="font-bold"
+      on:click={() => dispatch('dismiss')}
+      on:mousedown={() => scale.set(0.8)}
+      on:mouseup={() => scale.set(1)}
+      on:mouseenter={() => scale.set(1.3)}
+      on:mouseleave={() => scale.set(1)}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
         height="16"
         fill="currentColor"
-        class="inline-block h-[1em] w-[1em] stroke-white hover:stroke-gray-500"
-        style="vertical-align: -0.125em;"
+        class="inline-block h-[1em] w-[1em] stroke-white hover:stroke-gray-300"
+        style="vertical-align: -0.125em; transform: scale({$scale});"
         viewBox="0 0 16 16"
       >
         <path
@@ -53,6 +62,6 @@
     @apply bg-amber-500 text-white;
   }
   .toast.info {
-    @apply bg-teal-600 text-white;
+    @apply bg-sky-600 text-white;
   }
 </style>

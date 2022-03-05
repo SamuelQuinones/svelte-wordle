@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { spring } from 'svelte/motion';
   import { MAX_CHALLENGES, MAX_WORD_LENGTH } from '$constants/settings';
   import Tile from '../Grid/Tile.svelte';
-
   import Modal from './Base.svelte';
 
   /** Modal Visiblity */
@@ -10,11 +10,17 @@
   export let toggleIsOpen = (value: boolean) => {
     isOpen = value;
   };
+
+  const scale = spring(1);
 </script>
 
 <button
   class="ml-2 mr-1 h-7 w-7 hover:text-gray-500 focus:text-gray-500 dark:hover:text-slate-400 dark:focus:text-slate-400 md:mx-2"
   on:click={() => toggleIsOpen(true)}
+  on:mousedown={() => scale.set(0.8)}
+  on:mouseup={() => scale.set(1)}
+  on:mouseenter={() => scale.set(1.3)}
+  on:mouseleave={() => scale.set(1)}
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -23,6 +29,7 @@
     fill="currentColor"
     class="inline-block"
     viewBox="0 0 16 16"
+    style="transform: scale({$scale});"
   >
     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
     <path

@@ -4,7 +4,7 @@
 </script>
 
 {#if $toastStore.length > 0}
-  <section class="fixed top-7 left-0 right-0 z-[1000] mt-4 flex w-full flex-col justify-center">
+  <section class="fixed top-7 left-0 right-0 z-[100001] mt-4 flex w-full flex-col justify-center">
     {#each $toastStore as toast (toast.id)}
       <Toast
         dismissible={toast.dismissible}

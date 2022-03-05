@@ -1,11 +1,13 @@
 <script lang="ts">
+  import { spring } from 'svelte/motion';
   import Modal from './Base.svelte';
   import { browser } from '$app/env';
   import { gameStateKey, statsKey } from '$lib/localstorage';
   import { guessStore } from '$stores/guess';
   import { statStore } from '$stores/stats';
   import { gameStateStore } from '$stores/gameState';
-  import HighContrastSwitch from '$lib/Theme/HighContrast.svelte';
+  import { darkModeStore, highContrastStore } from '$stores/theme';
+  import ToggleSwitch from '$components/ToggleSwitch.svelte';
 
   /** Modal Visiblity */
   export let isOpen = false;
@@ -13,11 +15,17 @@
   export let toggleIsOpen = (value: boolean) => {
     isOpen = value;
   };
+
+  const scale = spring(1);
 </script>
 
 <button
   class="mr-2 ml-1 h-7 w-7 hover:text-gray-500 focus:text-gray-500 dark:hover:text-slate-400 dark:focus:text-slate-400 md:mx-2"
   on:click={() => toggleIsOpen(true)}
+  on:mousedown={() => scale.set(0.8)}
+  on:mouseup={() => scale.set(1)}
+  on:mouseenter={() => scale.set(1.3)}
+  on:mouseleave={() => scale.set(1)}
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -26,6 +34,7 @@
     fill="currentColor"
     class="inline-block"
     viewBox="0 0 16 16"
+    style="transform: scale({$scale});"
   >
     <path
       d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"
@@ -38,9 +47,17 @@
 
 <Modal {isOpen} {toggleIsOpen}>
   <h3 slot="header" class="text-center text-lg font-medium leading-6">Settings</h3>
-  <div slot="content" class="mt-3 mx-2">
-    <HighContrastSwitch />
+  <div slot="content" class="mx-2 mt-3">
+    <div>
+      <ToggleSwitch bind:checked={$highContrastStore} label="High Contrast Mode" />
+      <p class="-mt-1 text-xs text-gray-500 dark:text-gray-200">For improved color vision</p>
+    </div>
+    <hr class="my-3" />
+    <div>
+      <ToggleSwitch bind:checked={$darkModeStore} label="Toggle Dark Mode" />
+    </div>
     {#if import.meta.env.DEV}
+      <hr class="my-3" />
       <div class="mt-6 text-center">
         <button
           class="mb-3 inline-block rounded-md bg-blue-200 py-1 px-2 font-bold text-blue-900 hover:bg-blue-300 focus:bg-blue-300"
