@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="./favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-security-policy" content=""><title>Svordle</title><meta name="description" content="A worldle clone built with svelte" data-svelte="svelte-wlcqxw"><meta name="og:title" content="Svordle" data-svelte="svelte-wlcqxw"><meta name="og:description" content="A worldle clone built with svelte" data-svelte="svelte-wlcqxw"><meta name="site_name" content="Svordle" data-svelte="svelte-wlcqxw"><meta name="og:site_name" content="Svordle" data-svelte="svelte-wlcqxw"><meta property="og:type" content="website" data-svelte="svelte-wlcqxw">
+	<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-04c6461b.css">
+	<link rel="stylesheet" href="/_app/assets/store-760f9bca.css">
+	<link rel="stylesheet" href="/_app/assets/pages/index.svelte-7f19bd97.css">
+	<link rel="modulepreload" href="/_app/start-b30506cc.js">
+	<link rel="modulepreload" href="/_app/chunks/vendor-8d9ecbf3.js">
+	<link rel="modulepreload" href="/_app/pages/__layout.svelte-e3e5d50d.js">
+	<link rel="modulepreload" href="/_app/chunks/store-e82629b7.js">
+	<link rel="modulepreload" href="/_app/pages/index.svelte-5fb4e848.js">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MHEPM8SYN6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'G-MHEPM8SYN6');
+    </script>
+  </head>
+  <body>
+    <div class="mx-auto flex min-h-full max-w-[90rem] flex-col sm:px-6 lg:px-8">
+
+
+
+<header class="flex grow-0 items-center justify-between border-b-2 pb-1"><div class="flex items-center justify-center mr-10"><button class="ml-2 mr-1 h-7 w-7 hover:text-gray-500 focus:text-gray-500 dark:hover:text-slate-400 dark:focus:text-slate-400 md:mx-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="inline-block" viewBox="0 0 16 16" style="transform: scale(1);"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"></path></svg></button>
+
+</div>
+  <h1 class="text-2xl font-semibold md:text-4xl">Svordle</h1>
+  <div class="flex items-center justify-center"><button class="mx-1 h-7 w-7 hover:text-gray-500 focus:text-gray-500 dark:hover:text-slate-400 dark:focus:text-slate-400 md:mx-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="inline-block" viewBox="0 0 16 16" style="transform: scale(1);"><path d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z"></path></svg></button>
+
+
+    <button class="mr-2 ml-1 h-7 w-7 hover:text-gray-500 focus:text-gray-500 dark:hover:text-slate-400 dark:focus:text-slate-400 md:mx-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="inline-block" viewBox="0 0 16 16" style="transform: scale(1);"><path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"></path><path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"></path></svg></button>
+
+</div></header>
+
+
+
+
+<main class="flex grow flex-col items-center justify-center"><div class="mt-2 grid grid-rows-6 gap-1">
+  <div class="grid grid-cols-5 gap-1">
+  <div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div></div>
+  <div class="grid grid-cols-5 gap-1"><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div></div><div class="grid grid-cols-5 gap-1"><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div></div><div class="grid grid-cols-5 gap-1"><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div></div><div class="grid grid-cols-5 gap-1"><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div></div><div class="grid grid-cols-5 gap-1"><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div><div class="game-tile h-16 w-16 dark:border-slate-600"><div class="letter-wrapper"></div>
+</div></div></div></main>
+
+<div><div id="keyboard" class="mb-2"><section class="flex justify-center"><button class="keyboard-key h-14 w-12">Q
+</button><button class="keyboard-key h-14 w-12">W
+</button><button class="keyboard-key h-14 w-12">E
+</button><button class="keyboard-key h-14 w-12">R
+</button><button class="keyboard-key h-14 w-12">T
+</button><button class="keyboard-key h-14 w-12">Y
+</button><button class="keyboard-key h-14 w-12">U
+</button><button class="keyboard-key h-14 w-12">I
+</button><button class="keyboard-key h-14 w-12">O
+</button><button class="keyboard-key h-14 w-12">P
+</button></section>
+  <section class="flex justify-center"><button class="keyboard-key h-14 w-12">A
+</button><button class="keyboard-key h-14 w-12">S
+</button><button class="keyboard-key h-14 w-12">D
+</button><button class="keyboard-key h-14 w-12">F
+</button><button class="keyboard-key h-14 w-12">G
+</button><button class="keyboard-key h-14 w-12">H
+</button><button class="keyboard-key h-14 w-12">J
+</button><button class="keyboard-key h-14 w-12">K
+</button><button class="keyboard-key h-14 w-12">L
+</button></section>
+  <section class="flex justify-center"><button class="keyboard-key h-14 w-[4.5rem]">ENTER
+</button>
+    <button class="keyboard-key h-14 w-12">Z
+</button><button class="keyboard-key h-14 w-12">X
+</button><button class="keyboard-key h-14 w-12">C
+</button><button class="keyboard-key h-14 w-12">V
+</button><button class="keyboard-key h-14 w-12">B
+</button><button class="keyboard-key h-14 w-12">N
+</button><button class="keyboard-key h-14 w-12">M
+</button>
+    <button class="keyboard-key h-14 w-[4.5rem]">DELETE
+</button></section></div></div>
+
+
+<footer class="flex grow-0 justify-around py-1 text-center text-sm sm:py-2"><section>Version <strong>1.0.2</strong></section>
+
+  <section><button class="font-bold text-blue-500 hover:text-blue-600 hover:underline focus:text-blue-600 dark:text-sky-500 dark:hover:text-sky-600 dark:focus:text-sky-600">About this App</button>
+
+</section></footer>
+
+
+		<script type="module" data-hydrate="88tmj0">
+		import { start } from "/_app/start-b30506cc.js";
+		start({
+			target: document.querySelector('[data-hydrate="88tmj0"]').parentNode,
+			paths: {"base":"","assets":""},
+			session: {},
+			route: true,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/_app/pages/__layout.svelte-e3e5d50d.js"),
+						import("/_app/pages/index.svelte-5fb4e848.js")
+				],
+				params: {}
+			}
+		});
+	</script></div>
+  </body>
+</html>
