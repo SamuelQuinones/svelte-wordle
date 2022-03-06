@@ -13,6 +13,9 @@ const config = {
 
   kit: {
     adapter: adapter(),
+    prerender: {
+      default: true
+    },
     vite: {
       define: {
         __version__: JSON.stringify(process.env.npm_package_version)
