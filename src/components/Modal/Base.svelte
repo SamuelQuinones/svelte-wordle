@@ -78,7 +78,7 @@
     const keydown = (e: KeyboardEvent) => {
       e.stopPropagation();
       if (e.key === 'Escape') {
-        toggleIsOpen(false)
+        toggleIsOpen(false);
       }
     };
 
@@ -112,10 +112,12 @@
         <div class="modal-header">
           <slot name="header" />
           <button
-            class="absolute -top-1 -right-1 font-bold hover:text-gray-500 focus:text-gray-500 dark:hover:text-slate-400 dark:focus:text-slate-400"
+            class="absolute top-2 right-2 flex rounded-full font-bold hover:text-gray-500 focus:text-gray-500 focus:outline-none focus:ring focus:ring-violet-300 dark:hover:text-slate-400 dark:focus:text-slate-400"
             on:click={() => toggleIsOpen(false)}
             on:mousedown={() => scale.set(0.8)}
+            on:touchstart={() => scale.set(0.8)}
             on:mouseup={() => scale.set(1)}
+            on:touchend={() => scale.set(1)}
             on:mouseenter={() => scale.set(1.3)}
             on:mouseleave={() => scale.set(1)}
           >
@@ -149,21 +151,21 @@
 <style lang="postcss" global>
   div.modal {
     z-index: 10000;
-    @apply fixed top-0 left-0 flex h-screen w-full items-center justify-center opacity-100;
+    @apply fixed top-0 left-0 h-full w-full opacity-100;
   }
   div.backdrop {
     @apply absolute h-full w-full bg-black bg-opacity-40 dark:bg-gray-400 dark:bg-opacity-50;
   }
   div.modal-dialog {
-    @apply relative z-10 w-full sm:max-w-md;
+    @apply relative z-10 m-2 flex h-[calc(100%-1rem)] min-h-[calc(100%-1rem)] items-center sm:mx-auto sm:my-7 sm:h-[calc(100%-3.5rem)] sm:min-h-[calc(100%-3.5rem)] sm:max-w-lg;
   }
   div.content-wrapper {
-    @apply z-20 w-full overflow-hidden rounded-md bg-white p-4 shadow-lg dark:bg-gray-800;
+    @apply z-20 flex max-h-full w-full flex-col overflow-hidden rounded-md bg-white shadow-lg dark:bg-gray-800;
   }
   div.modal-body {
-    @apply max-h-vh-75 overflow-auto;
+    @apply flex-1 overflow-auto p-3;
   }
   div.modal-header {
-    @apply relative;
+    @apply relative p-3;
   }
 </style>
