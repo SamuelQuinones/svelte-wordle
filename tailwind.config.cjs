@@ -19,7 +19,7 @@ module.exports = {
     plugin(function ({ addVariant, e }) {
       addVariant('high-contrast', ({ modifySelectors, separator }) => {
         modifySelectors(({ className }) => {
-          return `.high-contrast .${e(`high-contrast${separator}${className}`)}`
+          return `.high-contrast .${e(`high-contrast${separator}${className}`)}`;
         });
       });
     })
