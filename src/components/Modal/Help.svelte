@@ -40,7 +40,7 @@
 
 <Modal {isOpen} {toggleIsOpen}>
   <h3 slot="header" class="text-center text-lg font-medium leading-6">How to play</h3>
-  <div slot="content" class="mt-3">
+  <div slot="content">
     <section>
       <p>
         Guess the word in {MAX_CHALLENGES} tries. Each guess must be a valid {MAX_WORD_LENGTH} letter
