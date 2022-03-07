@@ -15,10 +15,12 @@
 </script>
 
 <button
-  class="ml-2 mr-1 h-7 w-7 hover:text-gray-500 focus:text-gray-500 dark:hover:text-slate-400 dark:focus:text-slate-400 md:mx-2"
+  class="ml-2 mr-1 h-6 w-6 rounded-full hover:text-gray-500 focus:text-gray-500 focus:outline-none focus:ring focus:ring-violet-300 dark:hover:text-slate-400 dark:focus:text-slate-400 md:mx-2"
   on:click={() => toggleIsOpen(true)}
   on:mousedown={() => scale.set(0.8)}
+  on:touchstart={() => scale.set(0.8)}
   on:mouseup={() => scale.set(1)}
+  on:touchend={() => scale.set(1)}
   on:mouseenter={() => scale.set(1.3)}
   on:mouseleave={() => scale.set(1)}
 >
@@ -29,7 +31,7 @@
     fill="currentColor"
     class="inline-block"
     viewBox="0 0 16 16"
-    style="transform: scale({$scale});"
+    style="transform: scale({$scale}); vertical-align: -.125em;"
   >
     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
     <path

@@ -51,10 +51,12 @@
 </script>
 
 <button
-  class="mx-1 h-7 w-7 hover:text-gray-500 focus:text-gray-500 dark:hover:text-slate-400 dark:focus:text-slate-400 md:mx-2"
+  class="mx-1 h-6 w-6 rounded-md hover:text-gray-500 focus:text-gray-500 focus:outline-none focus:ring focus:ring-violet-300 dark:hover:text-slate-400 dark:focus:text-slate-400 md:mx-2"
   on:click={() => toggleIsOpen(true)}
   on:mousedown={() => scale.set(0.8)}
+  on:touchstart={() => scale.set(0.8)}
   on:mouseup={() => scale.set(1)}
+  on:touchend={() => scale.set(1)}
   on:mouseenter={() => scale.set(1.3)}
   on:mouseleave={() => scale.set(1)}
 >
@@ -65,7 +67,7 @@
     fill="currentColor"
     class="inline-block"
     viewBox="0 0 16 16"
-    style="transform: scale({$scale});"
+    style="transform: scale({$scale}); vertical-align: -.125em;"
   >
     <path
       d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z"

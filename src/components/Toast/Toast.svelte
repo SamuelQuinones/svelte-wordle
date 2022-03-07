@@ -22,7 +22,9 @@
       class="font-bold"
       on:click={() => dispatch('dismiss')}
       on:mousedown={() => scale.set(0.8)}
+      on:touchstart={() => scale.set(0.8)}
       on:mouseup={() => scale.set(1)}
+      on:touchend={() => scale.set(1)}
       on:mouseenter={() => scale.set(1.3)}
       on:mouseleave={() => scale.set(1)}
     >
