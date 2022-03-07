@@ -29,6 +29,7 @@
   } from '$constants/strings';
 
   let currentGuess: CharValue[] = [];
+  const RESPONSE_TIMEOUT = KEYBOARD_DELAY + CELL_ANIMATION_DURATION;
 
   // consider moving into onMount function
   // GAME WON
@@ -39,7 +40,7 @@
       id: 'wintoast',
       timeout: 2000
     });
-    setTimeout(() => statsModalState.set(true), KEYBOARD_DELAY + CELL_ANIMATION_DURATION);
+    setTimeout(() => statsModalState.set(true), 2000);
   }
   // GAME LOST
   $: if ($gameStateStore.gameLost) {
@@ -50,7 +51,7 @@
       id: 'losetoast',
       timeout: 2000
     });
-    setTimeout(() => statsModalState.set(true), KEYBOARD_DELAY + CELL_ANIMATION_DURATION);
+    setTimeout(() => statsModalState.set(true), 2000);
   }
   $: if (browser) {
     saveGameToLocalStorage({
@@ -109,15 +110,15 @@
       currentGuess = [];
 
       if (winningWord) {
-        gameStateStore.setGameWon(true);
         statStore.addStatsForCompletedGame($guessStore.length, true);
+        setTimeout(() => gameStateStore.setGameWon(true), RESPONSE_TIMEOUT);
         // toastStore.show({ timeout: 2000, dismissible: false, message: 'You won!' });
         return;
       }
 
       if ($guessStore.length === MAX_CHALLENGES) {
-        gameStateStore.setGameLost(true);
         statStore.addStatsForCompletedGame($guessStore.length, false);
+        setTimeout(() => gameStateStore.setGameLost(true), RESPONSE_TIMEOUT);
         // toastStore.show({ timeout: 2000, dismissible: false, message: 'You lost!', type: 'error' });
       }
     }
