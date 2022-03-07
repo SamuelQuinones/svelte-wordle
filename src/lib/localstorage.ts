@@ -49,7 +49,7 @@ export const saveStatsToLocalStorage = (state: GameStats) => {
   localStorage.setItem(statsKey, JSON.stringify(state));
 };
 
-export const loadStatsFromLocalStorate = () => {
+export const loadStatsFromLocalStorage = () => {
   try {
     const stats = localStorage.getItem(statsKey);
     if (!stats) return defaultStats;
