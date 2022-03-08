@@ -29,7 +29,7 @@
 
   const showCopyResponse = async () => {
     try {
-      const didShare = shareStatus($gameStateStore.gameLost);
+      const didShare = await shareStatus($gameStateStore.gameLost);
       if (didShare) return;
       toastStore.show({
         dismissible: false,
@@ -114,8 +114,8 @@
               <div
                 style={`width: ${isNaN(win / maxValue) ? 5 : (win / maxValue) * 90 + 5}%`}
                 class="grow bg-sky-600 text-white"
-                class:rounded-full={win > 0}
-                class:rounded-l-full={win === 0}
+                class:rounded-md={win > 0}
+                class:rounded-l-md={win === 0}
               >
                 {win}
               </div>

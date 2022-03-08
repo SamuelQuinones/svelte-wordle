@@ -105,7 +105,7 @@
 
 {#if isOpen}
   <div class="modal" use:modalAction tabindex="-1" bind:this={modalNode}>
-    <div class="backdrop" on:click={() => toggleIsOpen(false)} in:fade out:fade />
+    <div class="backdrop" on:click={() => toggleIsOpen(false)} transition:fade />
 
     <div class="modal-dialog">
       <div class="content-wrapper" transition:fly={{ y: -100, duration: 300 }}>
