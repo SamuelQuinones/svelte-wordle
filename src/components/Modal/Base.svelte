@@ -151,16 +151,16 @@
 <style lang="postcss" global>
   div.modal {
     z-index: 10000;
-    @apply fixed top-0 left-0 h-full w-full opacity-100;
+    @apply fixed top-0 left-0 block h-full w-full overflow-x-hidden overflow-y-hidden opacity-100;
   }
   div.backdrop {
     @apply absolute h-full w-full bg-black bg-opacity-40 dark:bg-gray-400 dark:bg-opacity-50;
   }
   div.modal-dialog {
-    @apply relative z-10 m-2 flex h-[calc(100%-1rem)] min-h-[calc(100%-1rem)] items-center sm:mx-auto sm:my-7 sm:h-[calc(100%-3.5rem)] sm:min-h-[calc(100%-3.5rem)] sm:max-w-lg;
+    @apply pointer-events-none relative z-10 m-2 flex h-[calc(100%-1rem)] min-h-[calc(100%-1rem)] items-center sm:mx-auto sm:my-7 sm:h-[calc(100%-3.5rem)] sm:min-h-[calc(100%-3.5rem)] sm:max-w-lg;
   }
   div.content-wrapper {
-    @apply z-20 flex max-h-full w-full flex-col overflow-hidden rounded-md bg-white shadow-lg dark:bg-gray-800;
+    @apply pointer-events-auto z-20 flex max-h-full w-full flex-col overflow-hidden rounded-md bg-white shadow-lg dark:bg-gray-800;
   }
   div.modal-body {
     @apply flex-1 overflow-auto p-3;
