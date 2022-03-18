@@ -3,6 +3,7 @@
   import { countdownClock } from '$stores/countdown';
   import { gameStateStore } from '$stores/gameState';
   import { statStore } from '$stores/stats';
+  import { guessStore } from '$stores/guess';
   import { shareStatus } from '$lib/share';
   import { toastStore } from '../Toast/store';
   import Modal from './Base.svelte';
@@ -40,7 +41,7 @@
     } catch (error) {
       toastStore.show({
         dismissible: false,
-        message: 'Unable to share',
+        message: 'Share Operation Canceled',
         type: 'error',
         timeout: 2000
       });
@@ -48,6 +49,7 @@
   };
 
   $: maxValue = Math.max(...$statStore.winDistribution);
+  $: shouldBeBlue = (i: number) => $gameStateStore.gameWon && $guessStore.length === i + 1;
 </script>
 
 <button
@@ -113,7 +115,9 @@
             <div class="ml-2 grow">
               <div
                 style={`width: ${isNaN(win / maxValue) ? 5 : (win / maxValue) * 90 + 5}%`}
-                class="grow bg-sky-600 text-white"
+                class:bg-sky-600={shouldBeBlue(i)}
+                class:bg-gray-600={!shouldBeBlue(i)}
+                class="grow text-white"
                 class:rounded-md={win > 0}
                 class:rounded-l-md={win === 0}
               >

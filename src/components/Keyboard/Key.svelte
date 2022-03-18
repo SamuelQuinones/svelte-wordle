@@ -15,7 +15,7 @@
     e.currentTarget.blur();
   };
   const animate = (node: HTMLElement, _args: any): any => {
-    if (!!status) {
+    if (status) {
       return dummy(node, { duration: CELL_ANIMATION_DURATION, delay: KEYBOARD_DELAY });
     }
   };
