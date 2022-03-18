@@ -132,7 +132,7 @@
       <section class="mt-5 grid grid-cols-2 gap-6">
         <div>
           <h5>{NEW_WORD_TEXT}</h5>
-          <div class="text-lg font-medium">{$countdownClock}</div>
+          <div class="text-lg font-medium font-mono">{$countdownClock}</div>
         </div>
         <div class="px-1">
           <button type="button" on:click={showCopyResponse} class="share-button w-full font-medium">
