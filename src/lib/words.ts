@@ -1,5 +1,6 @@
 import { WORDS } from '$constants/wordlist';
 import { VALIDGUESSES } from '$constants/validGuesses';
+import dayjs from 'dayjs';
 
 export const isWordInWordList = (word: string) => {
   return WORDS.includes(word.toLowerCase()) || VALIDGUESSES.includes(word.toLowerCase());
@@ -10,16 +11,15 @@ export const isWinningWord = (word: string) => {
 };
 
 export const getWordOfDay = () => {
-  const epochMs = new Date('February 22, 2022 00:00:00').valueOf();
-  const now = Date.now();
-  const msInDay = 86400000;
-  const index = Math.floor((now - epochMs) / msInDay);
-  const nextday = (index + 1) * msInDay + epochMs;
+  const dayOne = dayjs('2022-02-22');
+  const today = dayjs();
+  const daysSince = today.diff(dayOne, 'days');
+  const tomorrow = today.add(1, 'day').startOf('day');
 
   return {
-    solution: WORDS[index % WORDS.length].toUpperCase(),
-    solutionIndex: index,
-    tomorrow: nextday
+    solution: WORDS[daysSince % WORDS.length].toUpperCase(),
+    solutionIndex: daysSince,
+    tomorrow
   };
 };
 

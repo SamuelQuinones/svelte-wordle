@@ -12,7 +12,7 @@ const addLeadingZero = (time: number) => {
 };
 
 const formatTimeFrame = () => {
-  const diff = dayjs.duration(tomorrow - new Date().getTime());
+  const diff = dayjs.duration(tomorrow.diff(new Date()));
   return `${addLeadingZero(diff.hours())}:${addLeadingZero(diff.minutes())}:${addLeadingZero(
     diff.seconds()
   )}`;
