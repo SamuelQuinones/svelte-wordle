@@ -6,7 +6,7 @@ import { loadGameFromLocalStorage } from '$lib/localstorage';
 import { MAX_CHALLENGES } from '$constants/settings';
 import { gameStateStore } from './gameState';
 
-type Guess = {
+export type Guess = {
   guess: CharValue[];
   statuses: CharStatus[];
 };

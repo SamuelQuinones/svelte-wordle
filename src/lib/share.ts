@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { guessStore } from '$stores/guess';
+import { guessStore, type Guess } from '$stores/guess';
 import { darkModeStore, highContrastStore } from '$stores/theme';
 import { GAME_TITLE } from '$constants/strings';
 import { solutionIndex } from './words';
@@ -11,6 +11,19 @@ const parser = new UAParser();
 const browser = parser.getBrowser();
 const device = parser.getDevice();
 
+const canShare = (shareData: ShareData) => {
+  return !!(
+    // Webshare does not currently work on firefox mobile
+    (
+      browser.name?.toUpperCase().indexOf('FIREFOX') === -1 &&
+      webShareApiDeviceTypes.indexOf(device.type ?? '') !== -1 &&
+      navigator.canShare &&
+      navigator.canShare(shareData) &&
+      navigator.share
+    )
+  );
+};
+
 const generateTiles = () => {
   const isHighContrast = get(highContrastStore);
   const isDarkMode = get(darkModeStore);
@@ -21,8 +34,7 @@ const generateTiles = () => {
   return tiles;
 };
 
-export const generateEmojiGrid = (tiles: string[]) => {
-  const store = get(guessStore);
+export const generateEmojiGrid = (tiles: string[], store: Guess[]) => {
   const results = store
     .map(({ statuses }) => {
       return statuses
@@ -42,26 +54,15 @@ export const generateEmojiGrid = (tiles: string[]) => {
   return results;
 };
 
-const canShare = (shareData: Record<string, any>) => {
-  return !!(
-    // Webshare does not currently work on firefox mobile
-    (
-      browser.name?.toUpperCase().indexOf('FIREFOX') === -1 &&
-      webShareApiDeviceTypes.indexOf(device.type ?? '') !== -1 &&
-      navigator.canShare &&
-      navigator.canShare(shareData) &&
-      navigator.share
-    )
-  );
-};
-
 export const shareStatus = async (lost: boolean) => {
   let shareSuccess = false;
+  const store = get(guessStore);
 
-  const dataToShare = {
+  const dataToShare: ShareData = {
+    title: `${GAME_TITLE} Score`,
     text: `${GAME_TITLE} ${solutionIndex + 1} ${
-      lost ? 'X' : get(guessStore).length
-    }/${MAX_CHALLENGES}\n\n${generateEmojiGrid(generateTiles())}\n\nhttps://word.samtheq.com`
+      lost ? 'X' : store.length
+    }/${MAX_CHALLENGES}\n\n${generateEmojiGrid(generateTiles(), store)}\n\nhttps://word.samtheq.com`
   };
 
   try {
