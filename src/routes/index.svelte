@@ -112,14 +112,12 @@
       if (winningWord) {
         statStore.addStatsForCompletedGame($guessStore.length, true);
         setTimeout(() => gameStateStore.setGameWon(true), RESPONSE_TIMEOUT);
-        // toastStore.show({ timeout: 2000, dismissible: false, message: 'You won!' });
         return;
       }
 
       if ($guessStore.length === MAX_CHALLENGES) {
         statStore.addStatsForCompletedGame($guessStore.length, false);
         setTimeout(() => gameStateStore.setGameLost(true), RESPONSE_TIMEOUT);
-        // toastStore.show({ timeout: 2000, dismissible: false, message: 'You lost!', type: 'error' });
       }
     }
   };
@@ -138,7 +136,7 @@
 <main class="flex grow flex-col items-center justify-center">
   <Grid {currentGuess} allGuesses={$guessStore} />
 </main>
-<!-- Do i need this div? -->
-<div>
-  <Keyboard {onChar} {onDelete} {onEnter} />
-</div>
+
+<!-- <div> -->
+<Keyboard {onChar} {onDelete} {onEnter} />
+<!-- </div> -->
