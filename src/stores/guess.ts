@@ -18,13 +18,18 @@ const helper = (guess: CharValue[]) => {
 
   const statuses: CharStatus[] = Array.from(Array(guess.length));
 
+  //* Start with correct cases
   guess.forEach((letter, index) => {
-    //* Start with correct cases
     if (letter === splitSolution[index]) {
       statuses[index] = 'correct';
       usedSolutionCharacters[index] = true;
       return;
     }
+  });
+
+  guess.forEach((letter, index) => {
+    if (statuses[index]) return;
+
     //* letter is absent
     if (!splitSolution.includes(letter)) {
       statuses[index] = 'absent';
