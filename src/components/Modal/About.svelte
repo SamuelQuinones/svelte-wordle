@@ -54,13 +54,15 @@
         />
       </svg> View the Source
     </a>
-    <a
-      href="https://www.nytimes.com/games/wordle/index.html"
-      target="_blank"
-      class="mb-2 block font-bold text-blue-500 hover:text-blue-700 hover:underline focus:text-blue-700 dark:text-sky-500 dark:hover:text-sky-700 dark:focus:text-sky-700"
-      rel="noopener noreferrer"
-    >
-      Please support the official inspiration for this game</a
-    >
+    <div class="block">
+      <a
+        href="https://www.nytimes.com/games/wordle/index.html"
+        target="_blank"
+        class="mb-2 font-bold text-blue-500 hover:text-blue-700 hover:underline focus:text-blue-700 dark:text-sky-500 dark:hover:text-sky-700 dark:focus:text-sky-700"
+        rel="noopener noreferrer"
+      >
+        Please support the official inspiration for this game</a
+      >
+    </div>
   </div>
 </Base>
