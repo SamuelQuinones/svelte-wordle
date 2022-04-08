@@ -1,13 +1,22 @@
 <script lang="ts">
+  import { onDestroy } from 'svelte';
   import { CELL_ANIMATION_DURATION, KEYBOARD_DELAY } from '$constants/settings';
   import type { CharStatus } from '$lib/status';
   import { dummy } from '$lib/transition';
+  import { correctedKeyStore } from '$stores/keyboard';
 
   export let kbKey: string;
   export let onClick: (value: string) => void;
   export let status: CharStatus | undefined = undefined;
   export let heightClass = 'h-14';
   export let widthClass = 'w-12';
+
+  // for when a status goes from 'present' to 'correct'
+  onDestroy(() => {
+    if (status && status === "present") {
+      status && correctedKeyStore.updateKeys(kbKey);
+    }
+  });
 
   const handleClick = (e: MouseEvent) => {
     onClick(kbKey);
@@ -26,6 +35,7 @@
   class:absent={status === 'absent'}
   class:correct={status === 'correct'}
   class:present={status === 'present'}
+  class:has-previous={$correctedKeyStore.has(kbKey)}
   on:click={handleClick}
   in:animate
   on:introstart={(e) => {
@@ -56,6 +66,9 @@
     @apply bg-yellow-500 text-white hover:bg-yellow-500 high-contrast:bg-cyan-500 high-contrast:hover:bg-cyan-500;
   }
   .keyboard-key.revealing {
-    @apply !bg-slate-200 !text-black hover:!bg-slate-300 dark:!bg-slate-600 dark:!text-white dark:hover:!bg-slate-700;
+    @apply bg-slate-200 text-black hover:bg-slate-300 dark:bg-slate-600 dark:text-white dark:hover:bg-slate-700 !important;
+  }
+  .keyboard-key.revealing.has-previous {
+    @apply bg-yellow-500 text-white hover:bg-yellow-500 high-contrast:bg-cyan-500 high-contrast:hover:bg-cyan-500 !important;
   }
 </style>

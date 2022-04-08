@@ -1,4 +1,4 @@
-import { derived } from 'svelte/store';
+import { derived, writable } from 'svelte/store';
 import type { CharStatus } from '$lib/status';
 import { solution } from '$lib/words';
 import { guessStore } from './guess';
@@ -23,3 +23,17 @@ export const keyStatusStore = derived(guessStore, ($values) => {
   );
   return base;
 });
+
+function createCorrectedKeyStore() {
+  const { update, subscribe } = writable<Set<string>>(new Set());
+
+  return {
+    subscribe,
+    updateKeys: (key: string) =>
+      update((state) => {
+        state.add(key);
+        return state;
+      })
+  };
+}
+export const correctedKeyStore = createCorrectedKeyStore();
