@@ -1,0 +1,9 @@
+{
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"svelte", // Enable .svelte
+		"typescript", // Enable .ts
+		"typescriptreact" // Enable .tsx
+	]
+}

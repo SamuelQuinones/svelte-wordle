@@ -1,0 +1,42 @@
+{
+	"name": "svelte-wordle",
+	"version": "2.0.0",
+	"private": true,
+	"homepage": "https://word.samtheq.com",
+	"author": {
+		"name": "Samuel Quinones",
+		"email": "samuelquinones@samtheq.com"
+	},
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "eslint src && prettier -c \"src/**/*.{json,css,svelte,html}\"",
+		"format": "eslint --fix src && prettier -w \"src/**/*.{json,css,svelte,html}\""
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "2.1.0",
+		"@sveltejs/adapter-static": "2.0.3",
+		"@sveltejs/kit": "1.22.3",
+		"@typescript-eslint/eslint-plugin": "6.2.0",
+		"@typescript-eslint/parser": "6.2.0",
+		"autoprefixer": "10.4.14",
+		"eslint": "8.46.0",
+		"eslint-config-prettier": "8.9.0",
+		"eslint-plugin-prettier": "5.0.0",
+		"eslint-plugin-svelte": "2.32.4",
+		"postcss": "8.4.27",
+		"prettier": "3.0.0",
+		"prettier-plugin-svelte": "3.0.3",
+		"prettier-plugin-tailwindcss": "0.4.1",
+		"svelte": "4.1.1",
+		"svelte-check": "3.4.6",
+		"tailwindcss": "3.3.3",
+		"tslib": "2.6.1",
+		"typescript": "5.1.6",
+		"vite": "4.4.7"
+	},
+	"type": "module"
+}

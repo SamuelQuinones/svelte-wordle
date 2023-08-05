@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="author" content="Samuel Quinones" />
+		<meta name="generator" content="SvelteKit" />
+		%sveltekit.head%
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHEPM8SYN6"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'G-MHEPM8SYN6', {
+				cookie_domain: 'word.samtheq.com'
+			});
+		</script>
+	</head>
+	<body
+		data-sveltekit-preload-data="hover"
+		class="mx-auto flex min-h-full max-w-[90rem] flex-col sm:px-6 lg:px-8"
+	>
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>
