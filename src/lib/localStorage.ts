@@ -59,10 +59,16 @@ export function loadIsHardMode() {
 }
 
 // Theme items //
-export const highContrastKey = 'highContrast';
+export const highContrastKey = 'sw-highContrast';
 
 export function saveHighContrast(v: boolean) {
-	localStorage.setItem(highContrastKey, v ? '1' : '0');
+	if (v) {
+		localStorage.setItem(highContrastKey, '1');
+		document.documentElement.classList.add('high-contrast');
+	} else {
+		localStorage.setItem(highContrastKey, '0');
+		document.documentElement.classList.remove('high-contrast');
+	}
 }
 
 export function loadHighContrast() {
@@ -74,13 +80,15 @@ export function loadHighContrast() {
 	}
 }
 
-export const themeKey = 'theme';
+export const themeKey = 'sw-theme';
 
 export function saveIsDarkMode(v: boolean) {
 	if (v) {
 		localStorage.setItem(themeKey, 'dark');
+		document.documentElement.classList.add('dark');
 	} else {
 		localStorage.setItem(themeKey, 'light');
+		document.documentElement.classList.remove('dark');
 	}
 }
 

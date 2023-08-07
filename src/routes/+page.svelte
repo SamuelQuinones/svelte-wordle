@@ -1,6 +1,9 @@
 <script lang="ts">
-	const hello = 'world';
-	const version = __VERSION__;
+	import { Keyboard } from '$components/Keyboard';
+	import { gameStore } from '$lib/game/stateStore';
+	import type { CharValue } from '$lib/types';
+
+	let currentGuess: CharValue[] = [];
 </script>
 
 <svelte:head>
@@ -13,7 +16,10 @@
 </svelte:head>
 
 <main class="flex grow flex-col items-center justify-center w-full">
-	<h1>Welcome to SvelteKit</h1>
-	<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-	<p>{hello} {version}</p>
+	{#each $gameStore.guesses as { letters }}
+		<p>{letters.join('')}</p>
+	{/each}
+	<div>{currentGuess.join('')}</div>
 </main>
+
+<Keyboard bind:currentGuess />

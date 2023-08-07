@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { MAX_CHALLENGES } from '../../constants/settings';
+import { MAX_CHALLENGES } from '$constants/settings';
 import { browser } from '$app/environment';
 import { loadStats, saveGameStats } from '$lib/localStorage';
 import type { IGameStats } from '$lib/types';

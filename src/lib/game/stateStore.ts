@@ -1,10 +1,11 @@
 import type { CharValue, CharStatus, IGameStore } from '$lib/types';
 import { writable } from 'svelte/store';
-import { CELL_ANIMATION_DURATION, KEYBOARD_DELAY, MAX_CHALLENGES } from '../../constants/settings';
+import { CELL_ANIMATION_DURATION, KEYBOARD_DELAY, MAX_CHALLENGES } from '$constants/settings';
 import { isWinningWord, solution } from './helpers';
 import { statStore } from './statStore';
 import { browser } from '$app/environment';
 import { loadGameState, loadIsHardMode, saveGameState, saveIsHardMode } from '$lib/localStorage';
+import { keyboardStore } from '$components/Keyboard';
 
 const RESPONSE_TIMEOUT = KEYBOARD_DELAY + CELL_ANIMATION_DURATION;
 
@@ -111,14 +112,16 @@ function createGameStore() {
 			update((state) => {
 				const lastItem = state.guesses.at(-1);
 
+				setTimeout(() => keyboardStore.setLetterStatus(lastItem!), RESPONSE_TIMEOUT);
+
 				if (isWinningWord(lastItem!.letters.join(''))) {
 					statStore.calculateStats(state.guesses.length, true);
-					setTimeout(() => update((s) => ({ ...s, playState: 'won' })), RESPONSE_TIMEOUT);
+					setTimeout(() => update((s) => ({ ...s, playState: 'won' })), RESPONSE_TIMEOUT + 100);
 					return state;
 				}
 				if (state.guesses.length === MAX_CHALLENGES) {
 					statStore.calculateStats(state.guesses.length, false);
-					setTimeout(() => update((s) => ({ ...s, playState: 'lost' })), RESPONSE_TIMEOUT);
+					setTimeout(() => update((s) => ({ ...s, playState: 'lost' })), RESPONSE_TIMEOUT + 100);
 				}
 				return state;
 			});
