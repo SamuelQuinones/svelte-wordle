@@ -1,13 +1,13 @@
 import type { CharValue, CharStatus, IGameStore } from '$lib/types';
 import { writable } from 'svelte/store';
-import { CELL_ANIMATION_DURATION, KEYBOARD_DELAY, MAX_CHALLENGES } from '$constants/settings';
+import { TILE_ANIMATION_DURATION, KEYBOARD_DELAY, MAX_CHALLENGES } from '$constants/settings';
 import { isWinningWord, solution } from './helpers';
 import { statStore } from './statStore';
 import { browser } from '$app/environment';
 import { loadGameState, loadIsHardMode, saveGameState, saveIsHardMode } from '$lib/localStorage';
 import { keyboardStore } from '$components/Keyboard';
 
-const RESPONSE_TIMEOUT = KEYBOARD_DELAY + CELL_ANIMATION_DURATION;
+const RESPONSE_TIMEOUT = KEYBOARD_DELAY + TILE_ANIMATION_DURATION;
 
 function helper(letters: CharValue[]) {
 	const splitSolution = solution.split('');
