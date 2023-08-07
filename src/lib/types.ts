@@ -46,4 +46,10 @@ export interface IGameStore {
 	playState: 'playing' | 'won' | 'lost';
 	isHardMode: boolean;
 	guesses: Guess[];
+	// currentGuess?: CharValue[];
+}
+
+export interface IKeyboardStore {
+	modalOpen: boolean;
+	letterStatus: Map<CharValue, CharStatus>;
 }
