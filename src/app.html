@@ -7,6 +7,19 @@
 		<meta name="author" content="Samuel Quinones" />
 		<meta name="generator" content="SvelteKit" />
 		%sveltekit.head%
+		<script>
+			try {
+				if (
+					localStorage['sw-theme'] === 'dark' ||
+					(!('sw-theme' in localStorage) &&
+						window.matchMedia('(prefers-color-scheme: dark)').matches)
+				) {
+					document.documentElement.classList.add('dark');
+				} else {
+					document.documentElement.classList.remove('dark');
+				}
+			} catch (_) {}
+		</script>
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-MHEPM8SYN6"></script>
 		<script>
