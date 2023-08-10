@@ -77,7 +77,9 @@ function initializeStoreData(): IGameStore {
 
 	// map guess strings to the Guess object type
 	gameState.guesses = localState.guesses.map((g) => {
-		return helper(g.split('') as CharValue[]);
+		const guess = helper(g.split('') as CharValue[]);
+		keyboardStore.setLetterStatus(guess);
+		return guess;
 	});
 
 	return gameState;
@@ -113,6 +115,7 @@ function createGameStore() {
 				const lastItem = state.guesses.at(-1);
 
 				setTimeout(() => keyboardStore.setLetterStatus(lastItem!), RESPONSE_TIMEOUT);
+				setTimeout(() => keyboardStore.setDisabled(false), RESPONSE_TIMEOUT + 50);
 
 				if (isWinningWord(lastItem!.letters.join(''))) {
 					statStore.calculateStats(state.guesses.length, true);

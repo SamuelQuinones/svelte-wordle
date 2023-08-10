@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
-	import { browser } from '$app/environment';
 	import { gameStore } from '$lib/game/stateStore';
 	import type { CharValue } from '$lib/types';
 	import { MAX_CHALLENGES, MAX_WORD_LENGTH } from '$constants/settings';
@@ -11,6 +9,7 @@
 	export let currentGuess: CharValue[] = [];
 
 	function onChar(value: CharValue) {
+		if ($keyboardStore.disabled) return;
 		if (
 			currentGuess.length < MAX_WORD_LENGTH &&
 			$gameStore.guesses.length < MAX_CHALLENGES &&
@@ -22,6 +21,7 @@
 	}
 
 	function onDelete() {
+		if ($keyboardStore.disabled) return;
 		if (currentGuess.length > 0) {
 			currentGuess.pop();
 			currentGuess = currentGuess;
@@ -29,6 +29,7 @@
 	}
 
 	function onEnter() {
+		if ($keyboardStore.disabled) return;
 		if ($gameStore.playState === 'lost' || $gameStore.playState === 'won') return;
 		if (currentGuess.length !== MAX_WORD_LENGTH) {
 			// todo: Show toast
@@ -40,6 +41,7 @@
 			alert('not valid');
 			return;
 		}
+		keyboardStore.setDisabled(true);
 		gameStore.addGuess(currentGuess);
 		gameStore.determineGameState();
 		currentGuess = [];
@@ -58,21 +60,12 @@
 		}
 	}
 
-	onMount(() => {
-		if (browser) {
-			window.addEventListener('keydown', onKeyDown);
-		}
-	});
-	onDestroy(() => {
-		if (browser) {
-			window.removeEventListener('keydown', onKeyDown);
-		}
-	});
-
 	const rowOne: CharValue[] = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
 	const rowTwo: CharValue[] = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
 	const rowThree: CharValue[] = ['Z', 'X', 'C', 'V', 'B', 'N', 'M'];
 </script>
+
+<svelte:window on:keydown={onKeyDown} />
 
 <div data-keyboard>
 	<section class="flex justify-center">
