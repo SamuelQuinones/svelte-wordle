@@ -1,6 +1,6 @@
 <script lang="ts">
+	import { Grid } from '$components/Grid';
 	import { Keyboard } from '$components/Keyboard';
-	import { gameStore } from '$lib/game/stateStore';
 	import type { CharValue } from '$lib/types';
 
 	let currentGuess: CharValue[] = [];
@@ -15,11 +15,9 @@
 	<meta property="og:type" content="website" />
 </svelte:head>
 
-<main class="flex grow flex-col items-center justify-center w-full">
-	{#each $gameStore.guesses as { letters }}
-		<p>{letters.join('')}</p>
-	{/each}
-	<div>{currentGuess.join('')}</div>
+<main class="flex w-full grow flex-col items-center justify-center">
+	<!-- Unsure if this needs to be bound -->
+	<Grid {currentGuess} />
 </main>
 
 <Keyboard bind:currentGuess />
