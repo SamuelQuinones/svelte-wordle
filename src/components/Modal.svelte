@@ -13,7 +13,6 @@
 	// To use, bind a variable to the component instance
 	export function closeModal() {
 		dialogElement.close();
-		onClose?.();
 	}
 
 	function handleOutsideClick(e: MouseEvent) {
@@ -35,6 +34,7 @@
 	class="max-h-[calc(100%-1rem)] w-full overflow-hidden rounded-md dark:bg-gray-800 sm:max-h-[calc(100%-3.5rem)] sm:max-w-lg"
 	bind:this={dialogElement}
 	on:click={handleOutsideClick}
+	on:close={onClose}
 >
 	<div class="flex items-center p-3">
 		<div class="grow">
