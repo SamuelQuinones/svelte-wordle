@@ -67,7 +67,7 @@
 
 <svelte:window on:keydown={onKeyDown} />
 
-<div data-keyboard>
+<div data-keyboard class="mb-2">
 	<section class="flex justify-center">
 		{#each rowOne as kbKey (`${kbKey}${$keyboardStore.letterStatus.get(kbKey)}`)}
 			<Key {kbKey} onClick={() => onChar(kbKey)} status={$keyboardStore.letterStatus.get(kbKey)} />
