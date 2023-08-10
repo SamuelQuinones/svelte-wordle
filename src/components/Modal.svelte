@@ -32,11 +32,11 @@
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <dialog
-	class="rounded-md sm:max-w-lg sm:max-h-[calc(100%-3.5rem)] max-h-[calc(100%-1rem)] overflow-hidden w-full"
+	class="max-h-[calc(100%-1rem)] w-full overflow-hidden rounded-md sm:max-h-[calc(100%-3.5rem)] sm:max-w-lg"
 	bind:this={dialogElement}
 	on:click={handleOutsideClick}
 >
-	<div class="p-3 flex items-center">
+	<div class="flex items-center p-3">
 		<div class="grow">
 			<slot name="header" />
 		</div>

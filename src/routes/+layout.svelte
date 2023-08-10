@@ -20,7 +20,7 @@
 	$: if (browser) saveHighContrast(isHighContrast);
 </script>
 
-<header class="grid grid-cols-3 grow-0 items-center border-b-2 dark:border-slate-600">
+<header class="grid grow-0 grid-cols-3 items-center border-b-2 dark:border-slate-600">
 	<section class="flex justify-start">?</section>
 	<h1 class="flex justify-center text-2xl font-semibold md:text-4xl">Svordle</h1>
 	<section class="flex justify-end">
