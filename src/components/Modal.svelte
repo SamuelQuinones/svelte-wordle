@@ -32,7 +32,7 @@
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <dialog
-	class="max-h-[calc(100%-1rem)] w-full overflow-hidden rounded-md sm:max-h-[calc(100%-3.5rem)] sm:max-w-lg"
+	class="max-h-[calc(100%-1rem)] w-full overflow-hidden rounded-md dark:bg-gray-800 sm:max-h-[calc(100%-3.5rem)] sm:max-w-lg"
 	bind:this={dialogElement}
 	on:click={handleOutsideClick}
 >
@@ -47,12 +47,17 @@
 		<slot />
 	</div>
 
-	<div class="p-3">
-		<slot name="footer" />
-	</div>
+	{#if $$slots.footer}
+		<div class="p-3">
+			<slot name="footer" />
+		</div>
+	{/if}
 </dialog>
 
 <style lang="postcss">
+	dialog {
+		color: inherit;
+	}
 	dialog[open] {
 		display: flex;
 		flex-direction: column;

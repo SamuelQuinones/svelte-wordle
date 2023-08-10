@@ -52,4 +52,5 @@ export interface IGameStore {
 export interface IKeyboardStore {
 	modalOpen: boolean;
 	letterStatus: Map<CharValue, CharStatus>;
+	disabled: boolean;
 }

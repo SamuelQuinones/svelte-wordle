@@ -7,7 +7,7 @@ function createKeyboardStore() {
 
 	return {
 		subscribe,
-		reset: () => set(init),
+		reset: () => set({ ...init, letterStatus: new Map() }),
 		setModalOpen: (val: boolean) => update((s) => ({ ...s, modalOpen: val })),
 		setDisabled: (val: boolean) => update((s) => ({ ...s, disabled: val })),
 		setLetterStatus: (guess: Guess) => {
