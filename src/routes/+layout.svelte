@@ -162,14 +162,20 @@
 
 <Modal bind:this={settings} {onOpen} {onClose}>
 	<h1 slot="header" class="text-center text-lg/6 font-medium">Settings</h1>
-	<div>
-		<Toggle bind:checked={isDarkMode}>Dark Mode?</Toggle>
-	</div>
-	<div>
-		<Toggle bind:checked={isHighContrast}>High Contrast?</Toggle>
-	</div>
-	<div>
-		<Toggle bind:checked={isHardMode} disabled={$gameStore.guesses.length > 0}>Hard Mode</Toggle>
+	<div class="space-y-3">
+		<div>
+			<Toggle bind:checked={isDarkMode}>Dark Mode?</Toggle>
+		</div>
+		<hr />
+		<div>
+			<Toggle bind:checked={isHighContrast}>High Contrast?</Toggle>
+			<p class="text-xs">For improved color vision</p>
+		</div>
+		<hr />
+		<div>
+			<Toggle bind:checked={isHardMode} disabled={$gameStore.guesses.length > 0}>Hard Mode</Toggle>
+			<p class="text-xs">Any revealed hints must be used in subsequent guesses</p>
+		</div>
 	</div>
 	{#if import.meta.env.DEV}
 		<hr class="my-3" />
