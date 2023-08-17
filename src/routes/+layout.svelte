@@ -18,6 +18,7 @@
 	import { keyboardStore } from '$components/Keyboard';
 	import { Tile } from '$components/Grid';
 	import { toastStore, Toast } from '$components/Toast';
+	import { countdownClock } from '$lib/game/timeStore';
 
 	export let data: LayoutData;
 
@@ -235,7 +236,7 @@
 			<section class="mt-5 grid grid-cols-2 gap-6">
 				<div>
 					<h5>New word in</h5>
-					<div class="font-mono text-lg font-medium">00:00:00</div>
+					<div class="font-mono text-lg font-medium">{$countdownClock}</div>
 				</div>
 				<div class="px-1">
 					<button
