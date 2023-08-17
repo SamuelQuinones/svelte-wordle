@@ -59,7 +59,7 @@
 		<button on:click={closeModal} class="shrink">X</button>
 	</div>
 
-	<div class="flex-1 overflow-auto p-3">
+	<div class="overflow-auto p-3">
 		<slot />
 	</div>
 
