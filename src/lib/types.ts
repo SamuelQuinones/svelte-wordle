@@ -46,6 +46,7 @@ export interface IGameStore {
 	playState: 'playing' | 'won' | 'lost';
 	isHardMode: boolean;
 	guesses: Guess[];
+	hardModeError: boolean;
 	// currentGuess?: CharValue[];
 }
 

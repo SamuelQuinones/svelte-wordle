@@ -52,28 +52,31 @@ function helper(letters: CharValue[]) {
 	return { letters, statuses };
 }
 
-const defaultStoreVal: IGameStore = { guesses: [], playState: 'playing', isHardMode: false };
-
 function initializeStoreData(): IGameStore {
+	// create new  gameState object
+	const gameState: IGameStore = {
+		playState: 'playing',
+		guesses: [],
+		isHardMode: false,
+		hardModeError: false
+	};
+
 	// If theres no browser, return default
-	if (!browser) return defaultStoreVal;
+	if (!browser) return gameState;
+
+	// playing in hard mode - needs to happen first to get around the issue of hardmode existing without any gamestate
+	gameState.isHardMode = loadIsHardMode();
 
 	// get localstorage state
 	const localState = loadGameState();
 	// if there is no stored solution, or the stored solution is not the current global one, return default
-	if (!localState.solution || localState.solution !== solution) return defaultStoreVal;
-
-	// create bew gameState object
-	const gameState: IGameStore = { playState: 'playing', guesses: [], isHardMode: false };
+	if (!localState.solution || localState.solution !== solution) return gameState;
 
 	// determine if the game is won, lost, or still playing
 	const isGameWon = localState.guesses.includes(solution);
 	const isGameLost = localState.guesses.length === MAX_CHALLENGES && !isGameWon;
 	if (isGameWon) gameState.playState = 'won';
 	if (isGameLost) gameState.playState = 'lost';
-
-	// playing in hard mode
-	gameState.isHardMode = loadIsHardMode();
 
 	// map guess strings to the Guess object type
 	gameState.guesses = localState.guesses.map((g) => {
@@ -91,7 +94,8 @@ function createGameStore() {
 
 	return {
 		subscribe,
-		reset: () => set({ playState: 'playing', guesses: [], isHardMode: false }),
+		reset: () =>
+			set({ playState: 'playing', guesses: [], isHardMode: false, hardModeError: false }),
 		setHardMode: (val: boolean) => {
 			update((state) => {
 				state.isHardMode = val;
@@ -99,9 +103,42 @@ function createGameStore() {
 				return state;
 			});
 		},
+		hardModeHelper: (guess: CharValue[]) => {
+			update((state) => {
+				if (!state.isHardMode) return state;
+				state.hardModeError = false;
+				for (const { letters, statuses } of state.guesses) {
+					// Looping twice is needed here because wordle reports missing successes first...
+					for (let i = 0; i < letters.length; i++) {
+						const letter = letters[i];
+						const status = statuses[i];
+						if (status === 'correct' && letter !== guess[i]) {
+							// TODO: Show toast
+							alert(`Needs ${letter} at ${i + 1}`);
+							state.hardModeError = true;
+							break;
+						}
+					}
+					if (state.hardModeError) break; // correct letter found, break out
+					// Looping twice is needed here because wordle reports missing successes first...
+					for (let i = 0; i < letters.length; i++) {
+						const letter = letters[i];
+						const status = statuses[i];
+						if (status === 'present' && !letters.includes(guess[i])) {
+							// TODO: Show toast
+							alert(`Needs ${letter}`);
+							state.hardModeError = true;
+							break;
+						}
+					}
+					if (state.hardModeError) break; // present letter found, break out
+				}
+				return state;
+			});
+		},
 		addGuess: (guess: CharValue[]) => {
 			update((state) => {
-				// TODO: implement hardmode
+				state.hardModeError = false;
 				const guessWithStatus = helper(guess);
 				state.guesses.push(guessWithStatus);
 				if (browser) {

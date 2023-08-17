@@ -3,7 +3,13 @@
 	const version = __VERSION__;
 	import { browser } from '$app/environment';
 	import type { LayoutData } from './$types';
-	import { gameStateKey, saveHighContrast, saveIsDarkMode, statsKey } from '$lib/localStorage';
+	import {
+		gameStateKey,
+		saveHighContrast,
+		saveIsDarkMode,
+		saveIsHardMode,
+		statsKey
+	} from '$lib/localStorage';
 	import { MAX_CHALLENGES, MAX_WORD_LENGTH } from '$constants/settings';
 	import { statStore } from '$lib/game/statStore';
 	import { gameStore } from '$lib/game/stateStore';
@@ -30,6 +36,12 @@
 	let { isDarkMode, isHighContrast } = data;
 	$: if (browser) saveIsDarkMode(isDarkMode);
 	$: if (browser) saveHighContrast(isHighContrast);
+
+	let isHardMode = $gameStore.isHardMode;
+	$: {
+		if (browser) saveIsHardMode(isHardMode);
+		gameStore.setHardMode(isHardMode);
+	}
 </script>
 
 <header class="grid grow-0 grid-cols-3 items-center border-b-2 dark:border-slate-600">
@@ -111,8 +123,15 @@
 
 <Modal bind:this={settings} {onOpen} {onClose}>
 	<h1 slot="header" class="text-center text-lg/6 font-medium">Settings</h1>
-	<Toggle bind:checked={isDarkMode}>Dark Mode?</Toggle>
-	<Toggle bind:checked={isHighContrast}>High Contrast?</Toggle>
+	<div>
+		<Toggle bind:checked={isDarkMode}>Dark Mode?</Toggle>
+	</div>
+	<div>
+		<Toggle bind:checked={isHighContrast}>High Contrast?</Toggle>
+	</div>
+	<div>
+		<Toggle bind:checked={isHardMode} disabled={$gameStore.guesses.length > 0}>Hard Mode</Toggle>
+	</div>
 	{#if import.meta.env.DEV}
 		<hr class="my-3" />
 		<div class="mt-6 text-center">
@@ -144,7 +163,7 @@
 	{/if}
 </Modal>
 
-<Modal bind:this={stats} {onOpen} {onClose}>
+<Modal id="svordle-stats-modal" bind:this={stats} {onOpen} {onClose}>
 	<h3 slot="header" class="text-center text-lg/6 font-medium">Svordle Stats</h3>
 	<div class="text-center">
 		<section class="my-2 flex justify-center">

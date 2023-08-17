@@ -41,6 +41,9 @@
 			alert('not valid');
 			return;
 		}
+		gameStore.hardModeHelper(currentGuess);
+		// If playing hard mode, and there was an error, break out
+		if ($gameStore.isHardMode && $gameStore.hardModeError) return;
 		keyboardStore.setDisabled(true);
 		gameStore.addGuess(currentGuess);
 		gameStore.determineGameState();
@@ -51,11 +54,15 @@
 		if ($keyboardStore.modalOpen) return;
 		const value = e.key.toUpperCase();
 		if (e.ctrlKey || e.shiftKey || e.metaKey) return;
+		const activeEl = document.activeElement as HTMLElement;
 		if (value === 'ENTER' || value === 'RETURN') {
+			activeEl.blur();
 			onEnter();
 		} else if (value === 'BACKSPACE' || value === 'DELETE') {
+			activeEl.blur();
 			onDelete();
 		} else if (value.length === 1 && value >= 'A' && value <= 'Z') {
+			activeEl.blur();
 			onChar(value as CharValue);
 		}
 	}
