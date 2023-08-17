@@ -5,7 +5,7 @@ interface IStoredGameState {
 	solution?: string;
 }
 
-export const gameStateKey = 'gameState';
+export const gameStateKey = 'sw-gameState';
 
 export function saveGameState(obj: IStoredGameState) {
 	localStorage.setItem(gameStateKey, JSON.stringify(obj));
@@ -25,7 +25,7 @@ export function loadGameState(): IStoredGameState {
 	}
 }
 
-export const statsKey = 'gameStats';
+export const statsKey = 'sw-gameStats';
 
 export function saveGameStats(state: IGameStats) {
 	localStorage.setItem(statsKey, JSON.stringify(state));
@@ -43,7 +43,7 @@ export function loadStats(defaultShape: IGameStats, ...keys: (keyof IGameStats)[
 	}
 }
 
-export const hardModeKey = 'hardMode';
+export const hardModeKey = 'sw-hardMode';
 
 export function saveIsHardMode(v: boolean) {
 	localStorage.setItem(hardModeKey, v ? '1' : '0');
