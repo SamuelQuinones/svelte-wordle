@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface ToastObject {
 	id: string;
@@ -16,7 +17,7 @@ function createToastStore() {
 	};
 
 	const show = ({
-		id = crypto.randomUUID(),
+		id = uuidv4(),
 		timeout = 3000,
 		dismissible = true,
 		message = 'Hello',
