@@ -16,7 +16,6 @@
 
 	$: {
 		if ($gameStore.playState === 'won') {
-			// TODO: Show toast
 			toastStore.show({
 				dismissible: false,
 				message: WIN_MESSAGES[$gameStore.guesses.length - 1],

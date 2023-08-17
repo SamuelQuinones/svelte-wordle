@@ -19,6 +19,7 @@
 	import { Tile } from '$components/Grid';
 	import { toastStore, Toast } from '$components/Toast';
 	import { countdownClock } from '$lib/game/timeStore';
+	import { shareStatus } from '$lib/share';
 
 	export let data: LayoutData;
 
@@ -43,6 +44,30 @@
 	$: {
 		if (browser) saveIsHardMode(isHardMode);
 		gameStore.setHardMode(isHardMode);
+	}
+
+	async function showCopyResponse() {
+		try {
+			const didShare = await shareStatus(
+				isHighContrast,
+				isDarkMode,
+				$gameStore.playState === 'lost'
+			);
+			if (didShare) return;
+			toastStore.show({
+				dismissible: false,
+				message: 'Score copied to clipboard',
+				type: 'info',
+				timeout: 2000
+			});
+		} catch (error) {
+			toastStore.show({
+				dismissible: false,
+				message: 'Share Operation Canceled',
+				type: 'error',
+				timeout: 2000
+			});
+		}
 	}
 </script>
 
@@ -240,6 +265,7 @@
 				</div>
 				<div class="px-1">
 					<button
+						on:click={showCopyResponse}
 						type="button"
 						class="my-2 w-full rounded-md bg-sky-600 px-4 py-2 font-medium text-white transition-colors hover:bg-sky-800 focus:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-offset-2 active:bg-sky-800"
 					>
