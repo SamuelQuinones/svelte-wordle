@@ -5,6 +5,7 @@
 	import Key from './Key.svelte';
 	import { keyboardStore } from './store';
 	import { isWordInWordList } from '$lib/game/helpers';
+	import { toastStore } from '$components/Toast';
 
 	export let currentGuess: CharValue[] = [];
 
@@ -32,13 +33,21 @@
 		if ($keyboardStore.disabled) return;
 		if ($gameStore.playState === 'lost' || $gameStore.playState === 'won') return;
 		if (currentGuess.length !== MAX_WORD_LENGTH) {
-			// todo: Show toast
-			alert('not long enough');
+			toastStore.show({
+				message: 'Guess does not enough letters',
+				timeout: 3000,
+				dismissible: false,
+				type: 'warn'
+			});
 			return;
 		}
 		if (!isWordInWordList(currentGuess.join(''))) {
-			// todo: Show toast
-			alert('not valid');
+			toastStore.show({
+				timeout: 3000,
+				dismissible: false,
+				message: 'Not a valid word',
+				type: 'warn'
+			});
 			return;
 		}
 		gameStore.hardModeHelper(currentGuess);

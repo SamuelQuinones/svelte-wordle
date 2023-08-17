@@ -17,6 +17,7 @@
 	import Modal from '$components/Modal.svelte';
 	import { keyboardStore } from '$components/Keyboard';
 	import { Tile } from '$components/Grid';
+	import { toastStore, Toast } from '$components/Toast';
 
 	export let data: LayoutData;
 
@@ -43,6 +44,18 @@
 		gameStore.setHardMode(isHardMode);
 	}
 </script>
+
+{#if $toastStore.length > 0}
+	<aside
+		class="justify-centere fixed left-0 right-0 top-7 z-[100001] mt-4 flex w-full flex-col"
+		data-toast-container
+	>
+		{#each $toastStore as { dismissible, id, type, message } (id)}
+			<!-- TODO: add the id to the dismis function in the actual toast? -->
+			<Toast {type} {dismissible} on:dismiss={() => toastStore.dismiss(id)}>{message}</Toast>
+		{/each}
+	</aside>
+{/if}
 
 <header class="grid grow-0 grid-cols-3 items-center border-b-2 dark:border-slate-600">
 	<section class="flex justify-start"><button on:click={help.openModal}>?</button></section>
@@ -141,6 +154,12 @@
 					browser && localStorage.removeItem(gameStateKey);
 					gameStore.reset();
 					keyboardStore.reset();
+					toastStore.show({
+						message: '[DEBUG] Game State Reset',
+						type: 'info',
+						timeout: 2000,
+						dismissible: false
+					});
 					// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 					settings.closeModal();
 				}}
@@ -153,6 +172,12 @@
 				on:click={() => {
 					browser && localStorage.removeItem(statsKey);
 					statStore.reset();
+					toastStore.show({
+						message: '[DEBUG] Game Stats Reset',
+						type: 'info',
+						timeout: 2000,
+						dismissible: false
+					});
 					// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 					settings.closeModal();
 				}}

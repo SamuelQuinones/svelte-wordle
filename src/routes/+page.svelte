@@ -2,6 +2,8 @@
 	import { browser } from '$app/environment';
 	import { Grid } from '$components/Grid';
 	import { Keyboard } from '$components/Keyboard';
+	import { toastStore } from '$components/Toast';
+	import { WIN_MESSAGES, solution } from '$lib/game/helpers';
 	import { gameStore } from '$lib/game/stateStore';
 	import type { CharValue } from '$lib/types';
 
@@ -15,10 +17,20 @@
 	$: {
 		if ($gameStore.playState === 'won') {
 			// TODO: Show toast
-			alert('You won!');
+			toastStore.show({
+				dismissible: false,
+				message: WIN_MESSAGES[$gameStore.guesses.length - 1],
+				id: 'wintoast',
+				timeout: 2000
+			});
 		} else if ($gameStore.playState === 'lost') {
-			// TODO: Show toast
-			alert('You lost');
+			toastStore.show({
+				dismissible: false,
+				message: `The word was ${solution}`,
+				type: 'error',
+				id: 'losetoast',
+				timeout: 2000
+			});
 		}
 	}
 </script>

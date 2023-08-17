@@ -6,6 +6,7 @@ import { statStore } from './statStore';
 import { browser } from '$app/environment';
 import { loadGameState, loadIsHardMode, saveGameState, saveIsHardMode } from '$lib/localStorage';
 import { keyboardStore } from '$components/Keyboard';
+import { toastStore } from '$components/Toast';
 
 const RESPONSE_TIMEOUT = KEYBOARD_DELAY + TILE_ANIMATION_DURATION;
 
@@ -113,8 +114,12 @@ function createGameStore() {
 						const letter = letters[i];
 						const status = statuses[i];
 						if (status === 'correct' && letter !== guess[i]) {
-							// TODO: Show toast
-							alert(`Needs ${letter} at ${i + 1}`);
+							toastStore.show({
+								message: `Needs ${letter} at position ${i + 1}`,
+								timeout: 3000,
+								dismissible: false,
+								type: 'error'
+							});
 							state.hardModeError = true;
 							break;
 						}
@@ -125,8 +130,12 @@ function createGameStore() {
 						const letter = letters[i];
 						const status = statuses[i];
 						if (status === 'present' && !letters.includes(guess[i])) {
-							// TODO: Show toast
-							alert(`Needs ${letter}`);
+							toastStore.show({
+								message: `Needs ${letter}`,
+								timeout: 3000,
+								dismissible: false,
+								type: 'error'
+							});
 							state.hardModeError = true;
 							break;
 						}

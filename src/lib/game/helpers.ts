@@ -10,3 +10,12 @@ export const isWinningWord = (word: string) => {
 export const isWordInWordList = (word: string) => {
 	return WORDS.includes(word.toLowerCase()) || VALIDGUESSES.includes(word.toLowerCase());
 };
+
+export const WIN_MESSAGES = [
+	'Absolute mad lad',
+	'Expertly done!',
+	'Great job!',
+	'Well done',
+	'Call it a comeback!',
+	'Phew, nice work!'
+];
