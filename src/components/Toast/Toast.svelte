@@ -18,35 +18,37 @@
 	transition:fly|global={{ x: -100, duration: 300 }}
 >
 	<div class:mr-4={dismissible} class:grow={dismissible}><slot /></div>
-	<button
-		class="font-bold"
-		on:click={() => dispatch('dismiss')}
-		on:mousedown={() => scale.set(0.8)}
-		on:touchstart={() => scale.set(0.8)}
-		on:mouseup={() => scale.set(1)}
-		on:touchend={() => scale.set(1)}
-		on:mouseenter={() => scale.set(1.3)}
-		on:mouseleave={() => scale.set(1)}
-	>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="16"
-			height="16"
-			fill="currentColor"
-			class="inline-block h-[1em] w-[1em] stroke-white hover:stroke-gray-300"
-			style="vertical-align: -0.125em; transform: scale({$scale});"
-			viewBox="0 0 16 16"
+	{#if dismissible}
+		<button
+			class="font-bold"
+			on:click={() => dispatch('dismiss')}
+			on:mousedown={() => scale.set(0.8)}
+			on:touchstart={() => scale.set(0.8)}
+			on:mouseup={() => scale.set(1)}
+			on:touchend={() => scale.set(1)}
+			on:mouseenter={() => scale.set(1.3)}
+			on:mouseleave={() => scale.set(1)}
 		>
-			<path
-				fill-rule="evenodd"
-				d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"
-			/>
-			<path
-				fill-rule="evenodd"
-				d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"
-			/>
-		</svg>
-	</button>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="16"
+				height="16"
+				fill="currentColor"
+				class="inline-block h-[1em] w-[1em] stroke-white hover:stroke-gray-300"
+				style="vertical-align: -0.125em; transform: scale({$scale});"
+				viewBox="0 0 16 16"
+			>
+				<path
+					fill-rule="evenodd"
+					d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"
+				/>
+				<path
+					fill-rule="evenodd"
+					d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"
+				/>
+			</svg>
+		</button>
+	{/if}
 </div>
 
 <style lang="postcss">
