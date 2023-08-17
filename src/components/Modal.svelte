@@ -39,7 +39,10 @@
 			}
 		});
 		observer.observe(dialogElement, { attributes: true });
-		return () => observer.disconnect();
+		return () => {
+			observer.disconnect();
+			onClose(); // this might only really be needed in dev
+		};
 	});
 </script>
 
