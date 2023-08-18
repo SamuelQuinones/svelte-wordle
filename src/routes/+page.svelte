@@ -11,7 +11,7 @@
 
 	$: if ($gameStore.playState !== 'playing' && browser) {
 		const statsModal = document.querySelector<HTMLDialogElement>('#svordle-stats-modal');
-		setTimeout(() => statsModal!.showModal(), 2500);
+		setTimeout(() => statsModal!.showModal(), 2200);
 	}
 
 	$: {

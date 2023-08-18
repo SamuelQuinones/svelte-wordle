@@ -34,7 +34,7 @@
 		if ($gameStore.playState === 'lost' || $gameStore.playState === 'won') return;
 		if (currentGuess.length !== MAX_WORD_LENGTH) {
 			toastStore.show({
-				message: 'Not have enough letters',
+				message: 'There are not enough letters',
 				timeout: 3000,
 				dismissible: false,
 				type: 'warn'
