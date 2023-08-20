@@ -3,7 +3,13 @@
 	export let disabled = false;
 </script>
 
-<label>
+<label class="toggle-label" class:cursor-not-allowed={disabled}>
 	<slot />
-	<input type="checkbox" bind:checked {disabled} />
+	<input
+		type="checkbox"
+		class="input-toggle"
+		class:cursor-not-allowed={disabled}
+		bind:checked
+		{disabled}
+	/>
 </label>

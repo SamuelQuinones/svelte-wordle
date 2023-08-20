@@ -49,7 +49,7 @@ function generateEmojiGrid(tiles: Map<'present' | 'correct' | 'mode', string>, g
 		.join('\n');
 }
 
-export async function shareStatus(isHighContrast: boolean, isDarkMode: boolean, lost: boolean) {
+export async function shareGameStatus(isHighContrast: boolean, isDarkMode: boolean, lost: boolean) {
 	let shareSuccess = false;
 	const gameState = get(gameStore);
 

@@ -19,17 +19,19 @@
 	import { Tile } from '$components/Grid';
 	import { toastStore, Toast } from '$components/Toast';
 	import { countdownClock } from '$lib/game/timeStore';
-	import { shareStatus } from '$lib/share';
+	import { shareGameStatus } from '$lib/share';
 
 	export let data: LayoutData;
 
 	const onOpen = () => keyboardStore.setModalOpen(true);
 	const onClose = () => keyboardStore.setModalOpen(false);
 
+	// TODO: Maybe replace these with dom element refs?
 	let help: Modal;
 	let settings: Modal;
 	let stats: Modal;
 	let about: Modal;
+	let transfer: Modal;
 
 	$: maxValue = Math.max(...$statStore.winDistribution);
 	$: shouldBeBlue = (i: number) => {
@@ -48,7 +50,7 @@
 
 	async function showCopyResponse() {
 		try {
-			const didShare = await shareStatus(
+			const didShare = await shareGameStatus(
 				isHighContrast,
 				isDarkMode,
 				$gameStore.playState === 'lost'
@@ -69,6 +71,14 @@
 			});
 		}
 	}
+
+	function transferStats() {
+		console.log(JSON.stringify($statStore));
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+		stats.closeModal();
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+		transfer.openModal();
+	}
 </script>
 
 {#if $toastStore.length > 0}
@@ -86,7 +96,7 @@
 <header class="grid grow-0 grid-cols-3 items-center border-b-2 dark:border-slate-600">
 	<section class="flex justify-start"><button on:click={help.openModal}>?</button></section>
 	<h1 class="flex justify-center text-2xl font-semibold md:text-4xl">Svordle</h1>
-	<section class="flex justify-end">
+	<section class="flex justify-end gap-x-3">
 		<button on:click={stats.openModal}>📊</button>
 		<button on:click={settings.openModal}>⚙</button>
 	</section>
@@ -174,7 +184,8 @@
 		<hr />
 		<div>
 			<Toggle bind:checked={isHardMode} disabled={$gameStore.guesses.length > 0}>Hard Mode</Toggle>
-			<p class="text-xs">Any revealed hints must be used in subsequent guesses</p>
+			<p class="text-xs">Any revealed hints must be used in subsequent guesses.</p>
+			<p class="text-xs"><strong>Can only be enabled <em>at the start</em>.</strong></p>
 		</div>
 	</div>
 	{#if import.meta.env.DEV}
@@ -281,6 +292,21 @@
 			</section>
 		{/if}
 	</div>
+	<svelte:fragment slot="footer">
+		<hr />
+		<section class="mt-4 grid grid-cols-2 gap-x-4">
+			<div class="p-1.5">
+				<p class="text-xs">Click here to transfer your statistics to a new device.</p>
+			</div>
+			<div class="p-1.5">
+				<button
+					on:click={transferStats}
+					class="w-full rounded-md bg-sky-600 px-4 py-2 font-medium text-white transition-colors hover:bg-sky-800 focus:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-offset-2 active:bg-sky-800"
+					>Transfer</button
+				>
+			</div>
+		</section>
+	</svelte:fragment>
 </Modal>
 
 <Modal bind:this={about} {onOpen} {onClose}>
@@ -324,6 +350,11 @@
 			>
 		</div>
 	</div>
+</Modal>
+
+<Modal bind:this={transfer} {onOpen} {onClose}>
+	<h3 slot="header" class="text-center text-lg/6 font-medium">Transfer your statistics</h3>
+	<p>Functionality coming soon...</p>
 </Modal>
 
 <style lang="postcss">
