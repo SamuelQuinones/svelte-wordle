@@ -6,6 +6,10 @@ html {
 	height: 100%;
 }
 
+html.dark {
+	color-scheme: dark;
+}
+
 body {
 	@apply text-black dark:bg-gray-900 dark:text-white;
 }

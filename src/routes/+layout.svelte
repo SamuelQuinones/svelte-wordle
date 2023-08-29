@@ -296,7 +296,7 @@
 		<hr />
 		<section class="mt-4 grid grid-cols-2 gap-x-4">
 			<div class="p-1.5">
-				<p class="text-xs">Click here to transfer your statistics to a new device.</p>
+				<p class="text-sm">Click here to transfer your statistics to a new device.</p>
 			</div>
 			<div class="p-1.5">
 				<button
