@@ -3,13 +3,7 @@
 	const version = __VERSION__;
 	import { browser } from '$app/environment';
 	import type { LayoutData } from './$types';
-	import {
-		gameStateKey,
-		saveHighContrast,
-		saveIsDarkMode,
-		saveIsHardMode,
-		statsKey
-	} from '$lib/localStorage';
+	import { gameStateKey, saveHighContrast, saveIsDarkMode, statsKey } from '$lib/localStorage';
 	import { MAX_CHALLENGES, MAX_WORD_LENGTH } from '$constants/settings';
 	import { statStore } from '$lib/game/statStore';
 	import { gameStore } from '$lib/game/stateStore';
@@ -23,8 +17,8 @@
 
 	export let data: LayoutData;
 
-	const onOpen = () => keyboardStore.setModalOpen(true);
-	const onClose = () => keyboardStore.setModalOpen(false);
+	const onOpen = () => keyboardStore.setDisabled(true);
+	const onClose = () => keyboardStore.setDisabled(false);
 
 	// TODO: Maybe replace these with dom element refs?
 	let help: Modal;
@@ -43,10 +37,7 @@
 	$: if (browser) saveHighContrast(isHighContrast);
 
 	let isHardMode = $gameStore.isHardMode;
-	$: {
-		if (browser) saveIsHardMode(isHardMode);
-		gameStore.setHardMode(isHardMode);
-	}
+	$: gameStore.setHardMode(isHardMode);
 
 	async function showCopyResponse() {
 		try {

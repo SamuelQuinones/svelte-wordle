@@ -1,5 +1,5 @@
 export const MAX_WORD_LENGTH = 5;
 export const MAX_CHALLENGES = 6;
 export const TILE_ANIMATION_DURATION = 400;
-export const TILE_ANIMATION_DELAY = 425;
+export const TILE_ANIMATION_DELAY = 300;
 export const KEYBOARD_DELAY = TILE_ANIMATION_DELAY * (MAX_WORD_LENGTH - 1);

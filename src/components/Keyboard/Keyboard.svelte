@@ -60,7 +60,6 @@
 	}
 
 	function onKeyDown(e: KeyboardEvent) {
-		if ($keyboardStore.modalOpen) return;
 		const value = e.key.toUpperCase();
 		if (e.ctrlKey || e.shiftKey || e.metaKey) return;
 		const activeEl = document.activeElement as HTMLElement;
