@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { Grid } from '$components/Grid';
-	import { Keyboard } from '$components/Keyboard';
+	import { Keyboard, keyboardStore } from '$components/Keyboard';
 	import { toastStore } from '$components/Toast';
 	import { WIN_MESSAGES, solution } from '$lib/game/helpers';
 	import { gameStore } from '$lib/game/stateStore';
@@ -11,7 +11,10 @@
 
 	$: if ($gameStore.playState !== 'playing' && browser) {
 		const statsModal = document.querySelector<HTMLDialogElement>('#svordle-stats-modal');
-		setTimeout(() => statsModal!.showModal(), 2200);
+		setTimeout(() => {
+			keyboardStore.setDisabled(true);
+			statsModal!.showModal();
+		}, 2200);
 	}
 
 	$: {

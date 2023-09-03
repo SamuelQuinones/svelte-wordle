@@ -12,25 +12,31 @@
 	import { keyboardStore } from '$components/Keyboard';
 	import { Tile } from '$components/Grid';
 	import { toastStore, Toast } from '$components/Toast';
+	import { Graph, Transfer } from '$components/Stats';
 	import { countdownClock } from '$lib/game/timeStore';
 	import { shareGameStatus } from '$lib/share';
+	import { onDestroy } from 'svelte';
 
 	export let data: LayoutData;
 
-	const onOpen = () => keyboardStore.setDisabled(true);
-	const onClose = () => keyboardStore.setDisabled(false);
+	onDestroy(() => {
+		keyboardStore.setDisabled(false);
+	});
 
-	// TODO: Maybe replace these with dom element refs?
-	let help: Modal;
-	let settings: Modal;
-	let stats: Modal;
-	let about: Modal;
-	let transfer: Modal;
-
-	$: maxValue = Math.max(...$statStore.winDistribution);
-	$: shouldBeBlue = (i: number) => {
-		return $gameStore.playState === 'won' && $gameStore.guesses.length === i + 1;
+	const openModal = (dialogElement: HTMLDialogElement, runCb = true) => {
+		dialogElement.showModal();
+		if (runCb) keyboardStore.setDisabled(true);
 	};
+	const closeModal = (dialogElement: HTMLDialogElement, runCb = true) => {
+		dialogElement.close();
+		if (runCb) keyboardStore.setDisabled(false);
+	};
+
+	let help: HTMLDialogElement;
+	let settings: HTMLDialogElement;
+	let stats: HTMLDialogElement;
+	let about: HTMLDialogElement;
+	let transfer: HTMLDialogElement;
 
 	let { isDarkMode, isHighContrast } = data;
 	$: if (browser) saveIsDarkMode(isDarkMode);
@@ -63,12 +69,9 @@
 		}
 	}
 
-	function transferStats() {
-		console.log(JSON.stringify($statStore));
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-		stats.closeModal();
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-		transfer.openModal();
+	function openTransferModal() {
+		closeModal(stats, false);
+		openModal(transfer, false);
 	}
 </script>
 
@@ -85,11 +88,11 @@
 {/if}
 
 <header class="grid grow-0 grid-cols-3 items-center border-b-2 dark:border-slate-600">
-	<section class="flex justify-start"><button on:click={help.openModal}>?</button></section>
+	<section class="flex justify-start"><button on:click={() => openModal(help)}>?</button></section>
 	<h1 class="flex justify-center text-2xl font-semibold md:text-4xl">Svordle</h1>
 	<section class="flex justify-end gap-x-3">
-		<button on:click={stats.openModal}>📊</button>
-		<button on:click={settings.openModal}>⚙</button>
+		<button on:click={() => openModal(stats)}>📊</button>
+		<button on:click={() => openModal(settings)}>⚙</button>
 	</section>
 </header>
 <slot />
@@ -97,14 +100,15 @@
 	<section>Version <strong>{version}</strong></section>
 	<section>
 		<button
-			on:click={about.openModal}
+			on:click={() => openModal(about)}
 			class="font-bold text-blue-500 hover:text-blue-600 hover:underline focus:text-blue-600 dark:text-sky-500 dark:hover:text-sky-600 dark:focus:text-sky-600"
 			>About this App</button
 		>
 	</section>
 </footer>
 
-<Modal bind:this={help} {onOpen} {onClose}>
+<!-- HELP MODAL -->
+<Modal bind:dialogElement={help}>
 	<h3 slot="header" class="text-center text-lg/6 font-medium">How to play</h3>
 	<div class="help">
 		<section>
@@ -161,7 +165,8 @@
 	</div>
 </Modal>
 
-<Modal bind:this={settings} {onOpen} {onClose}>
+<!-- SETTINGS MODAL -->
+<Modal bind:dialogElement={settings}>
 	<h1 slot="header" class="text-center text-lg/6 font-medium">Settings</h1>
 	<div class="space-y-3">
 		<div>
@@ -194,8 +199,7 @@
 						timeout: 2000,
 						dismissible: false
 					});
-					// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-					settings.closeModal();
+					closeModal(settings);
 				}}
 			>
 				Reset Game State
@@ -212,8 +216,7 @@
 						timeout: 2000,
 						dismissible: false
 					});
-					// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-					settings.closeModal();
+					closeModal(settings);
 				}}
 			>
 				Reset Game Stats
@@ -222,49 +225,11 @@
 	{/if}
 </Modal>
 
-<Modal id="svordle-stats-modal" bind:this={stats} {onOpen} {onClose}>
+<!-- STATS MODAL -->
+<Modal id="svordle-stats-modal" bind:dialogElement={stats}>
 	<h3 slot="header" class="text-center text-lg/6 font-medium">Svordle Stats</h3>
 	<div class="text-center">
-		<section class="my-2 flex justify-center">
-			<div class="m-1 w-1/4 justify-center">
-				<div class="text-3xl font-bold">{$statStore.totalGames}</div>
-				<div class="text-xs">Total Games</div>
-			</div>
-			<div class="m-1 w-1/4 justify-center">
-				<div class="text-3xl font-bold">{$statStore.successRate}</div>
-				<div class="text-xs">Success Rate</div>
-			</div>
-			<div class="m-1 w-1/4 justify-center">
-				<div class="text-3xl font-bold">{$statStore.currentStreak}</div>
-				<div class="text-xs">Current Streak</div>
-			</div>
-			<div class="m-1 w-1/4 justify-center">
-				<div class="text-3xl font-bold">{$statStore.bestStreak}</div>
-				<div class="text-xs">Best Streak</div>
-			</div>
-		</section>
-		{#if $statStore.totalGames > 0}
-			<h3 class="text-lg/6 font-medium">Guess Distribution</h3>
-			<section class="m-2 text-sm">
-				{#each $statStore.winDistribution as win, i}
-					<div class="m-1 flex">
-						<div class="w-2">{i + 1}</div>
-						<div class="ml-2 grow">
-							<div
-								style={`width: ${isNaN(win / maxValue) ? 5 : (win / maxValue) * 90 + 5}%`}
-								class:bg-sky-600={shouldBeBlue(i)}
-								class:bg-gray-600={!shouldBeBlue(i)}
-								class="grow text-white"
-								class:rounded-md={win > 0}
-								class:rounded-l-md={win === 0}
-							>
-								{win}
-							</div>
-						</div>
-					</div>
-				{/each}
-			</section>
-		{/if}
+		<Graph />
 		{#if $gameStore.playState !== 'playing'}
 			<section class="mt-5 grid grid-cols-2 gap-6">
 				<div>
@@ -291,7 +256,7 @@
 			</div>
 			<div class="p-1.5">
 				<button
-					on:click={transferStats}
+					on:click={openTransferModal}
 					class="w-full rounded-md bg-sky-600 px-4 py-2 font-medium text-white transition-colors hover:bg-sky-800 focus:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-offset-2 active:bg-sky-800"
 					>Transfer</button
 				>
@@ -300,7 +265,8 @@
 	</svelte:fragment>
 </Modal>
 
-<Modal bind:this={about} {onOpen} {onClose}>
+<!-- ABOUT MODAL -->
+<Modal bind:dialogElement={about}>
 	<h3 slot="header" class="text-center text-lg/6 font-medium">
 		Svordle
 		{version}
@@ -343,9 +309,10 @@
 	</div>
 </Modal>
 
-<Modal bind:this={transfer} {onOpen} {onClose}>
+<!-- TRANSFER MODAL -->
+<Modal bind:dialogElement={transfer}>
 	<h3 slot="header" class="text-center text-lg/6 font-medium">Transfer your statistics</h3>
-	<p>Functionality coming soon...</p>
+	<Transfer />
 </Modal>
 
 <style lang="postcss">

@@ -1,21 +1,6 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-
 	export let id: string | undefined = undefined;
-	export let onOpen: () => void = () => void 0;
-	export let onClose: () => void = () => void 0;
-
-	let dialogElement: HTMLDialogElement;
-
-	// To use, bind a variable to the component instance
-	export function openModal() {
-		dialogElement.showModal();
-	}
-
-	// To use, bind a variable to the component instance
-	export function closeModal() {
-		dialogElement.close();
-	}
+	export let dialogElement: HTMLDialogElement;
 
 	function handleOutsideClick(e: MouseEvent) {
 		const dialogDimensions = dialogElement.getBoundingClientRect();
@@ -25,41 +10,23 @@
 			e.clientY < dialogDimensions.top ||
 			e.clientY > dialogDimensions.bottom
 		) {
-			closeModal();
+			dialogElement.close();
 		}
 	}
-
-	onMount(() => {
-		const observer = new MutationObserver((r) => {
-			const isOpen = (r[0].target as HTMLDialogElement).open;
-			if (isOpen) {
-				onOpen();
-			} else {
-				onClose();
-			}
-		});
-		observer.observe(dialogElement, { attributes: true });
-		return () => {
-			observer.disconnect();
-			onClose(); // this might only really be needed in dev
-		};
-	});
 </script>
 
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions a11y-click-events-have-key-events -->
 <dialog
 	{id}
 	class="max-h-[calc(100%-1rem)] w-full overflow-hidden rounded-md dark:bg-gray-800 sm:max-h-[calc(100%-3.5rem)] sm:max-w-lg"
 	bind:this={dialogElement}
 	on:click={handleOutsideClick}
-	on:close={onClose}
 >
 	<div class="flex items-center p-3">
 		<div class="grow">
 			<slot name="header" />
 		</div>
-		<button on:click={closeModal} class="shrink">X</button>
+		<button on:click={() => dialogElement.close()} class="shrink">X</button>
 	</div>
 
 	<div class="overflow-auto p-3">
