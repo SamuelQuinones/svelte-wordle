@@ -107,6 +107,8 @@
 	</section>
 </footer>
 
+<!-- MODALS IN HEADER START -->
+
 <!-- HELP MODAL -->
 <Modal bind:dialogElement={help}>
 	<h3 slot="header" class="text-center text-lg/6 font-medium">How to play</h3>
@@ -265,6 +267,16 @@
 	</svelte:fragment>
 </Modal>
 
+<!-- TRANSFER MODAL -->
+<Modal bind:dialogElement={transfer}>
+	<h3 slot="header" class="text-center text-lg/6 font-medium">Transfer your statistics</h3>
+	<Transfer />
+</Modal>
+
+<!-- MODALS IN HEADER END -->
+
+<!-- MODALS IN FOOTER START -->
+
 <!-- ABOUT MODAL -->
 <Modal bind:dialogElement={about}>
 	<h3 slot="header" class="text-center text-lg/6 font-medium">
@@ -309,11 +321,7 @@
 	</div>
 </Modal>
 
-<!-- TRANSFER MODAL -->
-<Modal bind:dialogElement={transfer}>
-	<h3 slot="header" class="text-center text-lg/6 font-medium">Transfer your statistics</h3>
-	<Transfer />
-</Modal>
+<!-- MODALS IN FOOTER END -->
 
 <style lang="postcss">
 	.help p {
