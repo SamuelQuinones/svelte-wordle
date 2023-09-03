@@ -4,8 +4,8 @@ import { browser } from '$app/environment';
 import { loadStats, saveGameStats } from '$lib/localStorage';
 import type { IGameStats } from '$lib/types';
 
-export const defaultStats: IGameStats = {
-	winDistribution: Array.from(new Array(MAX_CHALLENGES), () => 0),
+const defaultStats: IGameStats = {
+	winDistribution: [],
 	gamesFailed: 0,
 	currentStreak: 0,
 	bestStreak: 0,
@@ -15,7 +15,7 @@ export const defaultStats: IGameStats = {
 
 function createStatStore() {
 	const init = loadStats(
-		defaultStats,
+		{ ...defaultStats, winDistribution: Array.from(new Array(MAX_CHALLENGES), () => 0) },
 		'winDistribution',
 		'gamesFailed',
 		'currentStreak',
@@ -56,7 +56,8 @@ function createStatStore() {
 				return stats;
 			});
 		},
-		reset: () => set(defaultStats)
+		reset: () =>
+			set({ ...defaultStats, winDistribution: Array.from(new Array(MAX_CHALLENGES), () => 0) })
 	};
 }
 

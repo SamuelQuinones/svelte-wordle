@@ -60,6 +60,8 @@
 	}
 
 	function onKeyDown(e: KeyboardEvent) {
+		// TODO: Should I also check for gameState playing? might help with opening modal from home page
+		if ($keyboardStore.disabled) return;
 		const value = e.key.toUpperCase();
 		if (e.ctrlKey || e.shiftKey || e.metaKey) return;
 		const activeEl = document.activeElement as HTMLElement;

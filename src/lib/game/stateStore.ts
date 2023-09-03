@@ -165,12 +165,12 @@ function createGameStore() {
 
 				if (isWinningWord(lastItem!.letters.join(''))) {
 					statStore.calculateStats(state.guesses.length, true);
-					setTimeout(() => update((s) => ({ ...s, playState: 'won' })), RESPONSE_TIMEOUT + 100);
+					setTimeout(() => update((s) => ({ ...s, playState: 'won' })), RESPONSE_TIMEOUT);
 					return state;
 				}
 				if (state.guesses.length === MAX_CHALLENGES) {
 					statStore.calculateStats(state.guesses.length, false);
-					setTimeout(() => update((s) => ({ ...s, playState: 'lost' })), RESPONSE_TIMEOUT + 100);
+					setTimeout(() => update((s) => ({ ...s, playState: 'lost' })), RESPONSE_TIMEOUT);
 				}
 				return state;
 			});
