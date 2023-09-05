@@ -46,27 +46,27 @@
 	$: gameStore.setHardMode(isHardMode);
 
 	async function showCopyResponse() {
-		try {
-			const didShare = await shareGameStatus(
-				isHighContrast,
-				isDarkMode,
-				$gameStore.playState === 'lost'
-			);
-			if (didShare) return;
+		const { didShare, didCopy } = await shareGameStatus(
+			isHighContrast,
+			isDarkMode,
+			$gameStore.playState === 'lost'
+		);
+		if (didShare) return;
+		if (didCopy) {
 			toastStore.show({
 				dismissible: false,
 				message: 'Score copied to clipboard',
 				type: 'info',
 				timeout: 2000
 			});
-		} catch (error) {
-			toastStore.show({
-				dismissible: false,
-				message: 'Share Operation Canceled',
-				type: 'error',
-				timeout: 2000
-			});
+			return;
 		}
+		toastStore.show({
+			dismissible: false,
+			message: 'Share Operation Incomplete',
+			type: 'error',
+			timeout: 2000
+		});
 	}
 
 	function openTransferModal() {

@@ -21,6 +21,27 @@ function canShare(data: ShareData) {
 	);
 }
 
+export async function svordleShareData(data: ShareData) {
+	try {
+		if (canShare(data)) {
+			await navigator.share(data);
+			return true;
+		}
+		throw 'cannot share';
+	} catch (error) {
+		return false;
+	}
+}
+
+export async function svordleWriteClipboardText(text: string) {
+	try {
+		await navigator.clipboard.writeText(text);
+		return true;
+	} catch (error) {
+		return false;
+	}
+}
+
 function generateTiles(isHighContrast: boolean, isDarkMode: boolean) {
 	const tiles = new Map<'present' | 'correct' | 'mode', string>();
 
@@ -50,7 +71,6 @@ function generateEmojiGrid(tiles: Map<'present' | 'correct' | 'mode', string>, g
 }
 
 export async function shareGameStatus(isHighContrast: boolean, isDarkMode: boolean, lost: boolean) {
-	let shareSuccess = false;
 	const gameState = get(gameStore);
 
 	let scoreHeader = `Svordle ${solutionIndex + 1} ${
@@ -67,19 +87,9 @@ export async function shareGameStatus(isHighContrast: boolean, isDarkMode: boole
 		)}\n\nhttps://word.samtheq.com`
 	};
 
-	try {
-		if (canShare(dataToShare)) {
-			await navigator.share(dataToShare);
-			shareSuccess = true;
-		} else {
-			throw 'can not share';
-		}
-	} catch (error) {
-		shareSuccess = false;
-	}
+	const didShare = await svordleShareData(dataToShare);
+	if (didShare) return { didShare, didCopy: false };
 
-	if (!shareSuccess) {
-		await navigator.clipboard.writeText(dataToShare.text);
-	}
-	return shareSuccess;
+	const didCopy = await svordleWriteClipboardText(dataToShare.text);
+	return { didShare: false, didCopy };
 }
