@@ -47,13 +47,16 @@
 		<div class="grow">
 			<slot name="header" />
 		</div>
-		<button on:click={closeModal} class="shrink">
+		<button
+			on:click={closeModal}
+			class="shrink transition-colors hocus:text-gray-600 dark:hocus:text-gray-500"
+		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="1em"
 				height="1em"
 				fill="currentColor"
-				class="h-6 w-6 transition-colors hocus:text-gray-600 dark:hocus:text-gray-500"
+				class="h-6 w-6"
 				style="display: inline-block; vertical-align: -0.125em; fill: currentColor;"
 				viewBox="0 0 16 16"
 			>
