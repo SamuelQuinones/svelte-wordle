@@ -61,6 +61,13 @@
 			timeout: 2000
 		});
 	}
+
+	$: dynamicTextAreaClasses =
+		exportableStats === importTextarea
+			? 'bg-yellow-400 dark:bg-yellow-600'
+			: importableStats === null
+			? 'bg-red-500 dark:bg-red-900 text-white'
+			: 'bg-gray-100 dark:bg-slate-700';
 </script>
 
 <div class="flex items-center gap-x-4">
@@ -85,22 +92,25 @@
 	{#if importExportView === 'import'}
 		<textarea
 			rows={8}
-			class:bg-red-900={importableStats === null}
-			class:bg-yellow-600={exportableStats === importTextarea}
-			class="block w-full rounded-lg p-3"
+			class="block w-full rounded-lg border border-gray-500 p-3 dark:border-slate-500 {dynamicTextAreaClasses}"
 			bind:value={importTextarea}
 		/>
 		<div class="mt-4 text-center">
 			<button
 				on:click={loadImported}
 				disabled={saveDisabled}
-				class="inline-flex items-center rounded-md border border-sky-800 bg-sky-600 px-4 py-2 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 active:bg-sky-800 disabled:bg-transparent disabled:text-sky-800 hocus:bg-sky-800"
+				class="inline-flex items-center rounded-md border border-sky-800 bg-sky-600 px-4 py-2 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 active:bg-sky-800 disabled:bg-transparent disabled:text-sky-800 hocus:bg-sky-800 disabled:hocus:bg-transparent"
 			>
 				Save
 			</button>
 		</div>
 	{:else}
-		<textarea readonly rows={8} class="block w-full rounded-lg p-3" value={exportableStats} />
+		<textarea
+			readonly
+			rows={8}
+			class="block w-full rounded-lg border border-gray-500 bg-gray-100 p-3 dark:border-slate-500 dark:bg-slate-700"
+			bind:value={exportableStats}
+		/>
 		<div class="mt-4 text-center">
 			<button
 				on:click={onCopied}
