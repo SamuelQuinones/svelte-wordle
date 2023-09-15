@@ -34,7 +34,7 @@
 				width="16"
 				height="16"
 				fill="currentColor"
-				class="inline-block h-[1em] w-[1em] stroke-white hover:stroke-gray-300"
+				class="inline-block h-[1em] w-[1em] stroke-white hocus:stroke-gray-300"
 				style="vertical-align: -0.125em; transform: scale({$scale});"
 				viewBox="0 0 16 16"
 			>

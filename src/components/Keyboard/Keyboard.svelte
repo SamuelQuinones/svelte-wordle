@@ -9,8 +9,10 @@
 
 	export let currentGuess: CharValue[] = [];
 
+	$: shouldNotType = $gameStore.playState !== 'playing' || $keyboardStore.disabled;
+
 	function onChar(value: CharValue) {
-		if ($keyboardStore.disabled) return;
+		if (shouldNotType) return;
 		if (
 			currentGuess.length < MAX_WORD_LENGTH &&
 			$gameStore.guesses.length < MAX_CHALLENGES &&
@@ -22,7 +24,7 @@
 	}
 
 	function onDelete() {
-		if ($keyboardStore.disabled) return;
+		if (shouldNotType) return;
 		if (currentGuess.length > 0) {
 			currentGuess.pop();
 			currentGuess = currentGuess;
@@ -30,8 +32,7 @@
 	}
 
 	function onEnter() {
-		if ($keyboardStore.disabled) return;
-		if ($gameStore.playState === 'lost' || $gameStore.playState === 'won') return;
+		if (shouldNotType) return;
 		if (currentGuess.length !== MAX_WORD_LENGTH) {
 			toastStore.show({
 				message: 'There are not enough letters',
@@ -60,19 +61,13 @@
 	}
 
 	function onKeyDown(e: KeyboardEvent) {
-		// TODO: Should I also check for gameState playing? might help with opening modal from home page
-		if ($keyboardStore.disabled) return;
 		const value = e.key.toUpperCase();
 		if (e.ctrlKey || e.shiftKey || e.metaKey) return;
-		const activeEl = document.activeElement as HTMLElement;
 		if (value === 'ENTER' || value === 'RETURN') {
-			activeEl.blur();
 			onEnter();
 		} else if (value === 'BACKSPACE' || value === 'DELETE') {
-			activeEl.blur();
 			onDelete();
 		} else if (value.length === 1 && value >= 'A' && value <= 'Z') {
-			activeEl.blur();
 			onChar(value as CharValue);
 		}
 	}

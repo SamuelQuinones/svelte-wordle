@@ -2,6 +2,7 @@
 	import '../app.css';
 	const version = __VERSION__;
 	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
 	import type { LayoutData } from './$types';
 	import { gameStateKey, saveHighContrast, saveIsDarkMode, statsKey } from '$lib/localStorage';
 	import { MAX_CHALLENGES, MAX_WORD_LENGTH } from '$constants/settings';
@@ -23,20 +24,17 @@
 		keyboardStore.setDisabled(false);
 	});
 
-	const openModal = (dialogElement: HTMLDialogElement, runCb = true) => {
-		dialogElement.showModal();
-		if (runCb) keyboardStore.setDisabled(true);
-	};
-	const closeModal = (dialogElement: HTMLDialogElement, runCb = true) => {
-		dialogElement.close();
-		if (runCb) keyboardStore.setDisabled(false);
-	};
+	$: isHome = $page.url.pathname === '/';
+	$: if (isHome && $gameStore.playState !== 'playing') {
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+		setTimeout(() => stats.openModal(), 2200);
+	}
 
-	let help: HTMLDialogElement;
-	let settings: HTMLDialogElement;
-	let stats: HTMLDialogElement;
-	let about: HTMLDialogElement;
-	let transfer: HTMLDialogElement;
+	let help: Modal;
+	let settings: Modal;
+	let stats: Modal;
+	let about: Modal;
+	let transfer: Modal;
 
 	let { isDarkMode, isHighContrast } = data;
 	$: if (browser) saveIsDarkMode(isDarkMode);
@@ -69,9 +67,19 @@
 		});
 	}
 
+	function onOpen() {
+		keyboardStore.setDisabled(true);
+	}
+
+	function onClose() {
+		keyboardStore.setDisabled(false);
+	}
+
 	function openTransferModal() {
-		closeModal(stats, false);
-		openModal(transfer, false);
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+		stats.closeModalWithoutCallback();
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+		transfer.openWithoutCallback();
 	}
 </script>
 
@@ -88,11 +96,53 @@
 {/if}
 
 <header class="grid grow-0 grid-cols-3 items-center border-b-2 dark:border-slate-600">
-	<section class="flex justify-start"><button on:click={() => openModal(help)}>?</button></section>
+	<section class="flex justify-start">
+		<button class="modal-trigger" on:click={help.openModal}>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				fill="currentColor"
+				viewBox="0 0 16 16"
+			>
+				<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+				<path
+					d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"
+				/>
+			</svg><span class="sr-only">Help</span>
+		</button>
+	</section>
 	<h1 class="flex justify-center text-2xl font-semibold md:text-4xl">Svordle</h1>
 	<section class="flex justify-end gap-x-3">
-		<button on:click={() => openModal(stats)}>📊</button>
-		<button on:click={() => openModal(settings)}>⚙</button>
+		<button class="modal-trigger" on:click={stats.openModal}>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				fill="currentColor"
+				viewBox="0 0 16 16"
+			>
+				<path
+					d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z"
+				/>
+			</svg><span class="sr-only">Statistics</span>
+		</button>
+		<button class="modal-trigger" on:click={settings.openModal}>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				fill="currentColor"
+				viewBox="0 0 16 16"
+			>
+				<path
+					d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"
+				/>
+				<path
+					d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"
+				/>
+			</svg><span class="sr-only">Settings</span>
+		</button>
 	</section>
 </header>
 <slot />
@@ -100,8 +150,8 @@
 	<section>Version <strong>{version}</strong></section>
 	<section>
 		<button
-			on:click={() => openModal(about)}
-			class="font-bold text-blue-500 hover:text-blue-600 hover:underline focus:text-blue-600 dark:text-sky-500 dark:hover:text-sky-600 dark:focus:text-sky-600"
+			on:click={about.openModal}
+			class="font-bold text-blue-500 hover:underline hocus:text-blue-600 dark:text-sky-500 dark:hocus:text-sky-600"
 			>About this App</button
 		>
 	</section>
@@ -110,7 +160,7 @@
 <!-- MODALS IN HEADER START -->
 
 <!-- HELP MODAL -->
-<Modal bind:dialogElement={help}>
+<Modal {onClose} {onOpen} bind:this={help}>
 	<h3 slot="header" class="text-center text-lg/6 font-medium">How to play</h3>
 	<div class="help">
 		<section>
@@ -168,7 +218,7 @@
 </Modal>
 
 <!-- SETTINGS MODAL -->
-<Modal bind:dialogElement={settings}>
+<Modal {onClose} {onOpen} bind:this={settings}>
 	<h1 slot="header" class="text-center text-lg/6 font-medium">Settings</h1>
 	<div class="space-y-3">
 		<div>
@@ -190,7 +240,7 @@
 		<hr class="my-3" />
 		<div class="mt-6 text-center">
 			<button
-				class="mb-3 inline-block rounded-md bg-blue-200 px-2 py-1 font-bold text-blue-900 hover:bg-blue-300 focus:bg-blue-300"
+				class="mb-3 inline-block rounded-md bg-blue-200 px-2 py-1 font-bold text-blue-900 hocus:bg-blue-300"
 				on:click={() => {
 					browser && localStorage.removeItem(gameStateKey);
 					gameStore.reset();
@@ -201,14 +251,15 @@
 						timeout: 2000,
 						dismissible: false
 					});
-					closeModal(settings);
+					// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+					settings.closeModal();
 				}}
 			>
 				Reset Game State
 			</button>
 			<br />
 			<button
-				class="mb-3 inline-block rounded-md bg-blue-200 px-2 py-1 font-bold text-blue-900 hover:bg-blue-300 focus:bg-blue-300"
+				class="mb-3 inline-block rounded-md bg-blue-200 px-2 py-1 font-bold text-blue-900 hocus:bg-blue-300"
 				on:click={() => {
 					browser && localStorage.removeItem(statsKey);
 					statStore.reset();
@@ -218,7 +269,8 @@
 						timeout: 2000,
 						dismissible: false
 					});
-					closeModal(settings);
+					// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+					settings.closeModal();
 				}}
 			>
 				Reset Game Stats
@@ -228,7 +280,7 @@
 </Modal>
 
 <!-- STATS MODAL -->
-<Modal id="svordle-stats-modal" bind:dialogElement={stats}>
+<Modal {onClose} {onOpen} bind:this={stats}>
 	<h3 slot="header" class="text-center text-lg/6 font-medium">Svordle Stats</h3>
 	<div class="text-center">
 		<Graph />
@@ -242,7 +294,7 @@
 					<button
 						on:click={showCopyResponse}
 						type="button"
-						class="my-2 w-full rounded-md bg-sky-600 px-4 py-2 font-medium text-white transition-colors hover:bg-sky-800 focus:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-offset-2 active:bg-sky-800"
+						class="my-2 w-full rounded-md bg-sky-600 px-4 py-2 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 active:bg-sky-800 hocus:bg-sky-800"
 					>
 						Share
 					</button>
@@ -259,7 +311,7 @@
 			<div class="p-1.5">
 				<button
 					on:click={openTransferModal}
-					class="w-full rounded-md bg-sky-600 px-4 py-2 font-medium text-white transition-colors hover:bg-sky-800 focus:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-offset-2 active:bg-sky-800"
+					class="w-full rounded-md bg-sky-600 px-4 py-2 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 active:bg-sky-800 hocus:bg-sky-800"
 					>Transfer</button
 				>
 			</div>
@@ -268,7 +320,7 @@
 </Modal>
 
 <!-- TRANSFER MODAL -->
-<Modal bind:dialogElement={transfer}>
+<Modal {onClose} {onOpen} bind:this={transfer}>
 	<h3 slot="header" class="text-center text-lg/6 font-medium">Transfer your statistics</h3>
 	<Transfer />
 </Modal>
@@ -278,7 +330,7 @@
 <!-- MODALS IN FOOTER START -->
 
 <!-- ABOUT MODAL -->
-<Modal bind:dialogElement={about}>
+<Modal {onClose} {onOpen} bind:this={about}>
 	<h3 slot="header" class="text-center text-lg/6 font-medium">
 		Svordle
 		{version}
@@ -293,11 +345,11 @@
 		<a
 			href="https://github.com/SamuelQuinones/svelte-wordle"
 			target="_blank"
-			class="mb-3 mt-1 inline-block rounded-md bg-blue-200 px-2 py-1 font-bold text-blue-900 hover:bg-blue-300 focus:bg-blue-300"
+			class="mb-3 mt-1 inline-block rounded-md bg-blue-200 px-2 py-1 font-bold text-blue-900 hocus:bg-blue-300"
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
-				width="16"
-				height="16"
+				width="24"
+				height="24"
 				fill="currentColor"
 				class="inline-block"
 				style="vertical-align: -.125em;"
@@ -312,7 +364,7 @@
 			<a
 				href="https://www.nytimes.com/games/wordle/index.html"
 				target="_blank"
-				class="mb-2 font-bold text-blue-500 hover:text-blue-700 hover:underline focus:text-blue-700 dark:text-sky-500 dark:hover:text-sky-700 dark:focus:text-sky-700"
+				class="mb-2 font-bold text-blue-500 hover:underline hocus:text-blue-700 dark:text-sky-500 dark:hocus:text-sky-700"
 				rel="noopener noreferrer"
 			>
 				Please support the official inspiration for this game</a
@@ -329,5 +381,14 @@
 	}
 	.demo-row {
 		@apply mb-1 flex items-center justify-start gap-1;
+	}
+
+	.modal-trigger {
+		@apply transition-colors hocus:text-gray-600 dark:hocus:text-gray-500;
+	}
+	.modal-trigger > svg {
+		display: inline-block;
+		vertical-align: -0.125em;
+		fill: currentcolor;
 	}
 </style>

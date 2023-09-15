@@ -9,6 +9,7 @@ export default {
 	},
 	plugins: [
 		plugin(function ({ addVariant, e }) {
+			addVariant('hocus', ['&:hover', '&:focus']);
 			addVariant('high-contrast', ({ modifySelectors, separator }) => {
 				modifySelectors(({ className }) => {
 					return `:is(.high-contrast .${e(`high-contrast${separator}${className}`)})`;

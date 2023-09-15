@@ -94,7 +94,7 @@
 			<button
 				on:click={loadImported}
 				disabled={saveDisabled}
-				class="inline-flex items-center rounded-md border border-sky-800 bg-sky-600 px-4 py-2 font-medium text-white transition-colors hover:bg-sky-800 focus:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-offset-2 active:bg-sky-800 disabled:bg-transparent disabled:text-sky-800"
+				class="inline-flex items-center rounded-md border border-sky-800 bg-sky-600 px-4 py-2 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 active:bg-sky-800 disabled:bg-transparent disabled:text-sky-800 hocus:bg-sky-800"
 			>
 				Save
 			</button>
@@ -104,7 +104,7 @@
 		<div class="mt-4 text-center">
 			<button
 				on:click={onCopied}
-				class="inline-flex items-center rounded-md border border-sky-600 bg-sky-600 px-4 py-2 font-medium text-white transition-colors hover:border-sky-800 hover:bg-sky-800 focus:border-sky-800 focus:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-offset-2 active:bg-sky-800"
+				class="inline-flex items-center rounded-md border border-sky-600 bg-sky-600 px-4 py-2 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 active:bg-sky-800 hocus:border-sky-800 hocus:bg-sky-800"
 			>
 				{#if copied}
 					Copied!

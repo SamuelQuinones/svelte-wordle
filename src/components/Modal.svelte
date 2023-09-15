@@ -1,6 +1,27 @@
 <script lang="ts">
 	export let id: string | undefined = undefined;
-	export let dialogElement: HTMLDialogElement;
+	let dialogElement: HTMLDialogElement;
+
+	export let onOpen: () => void = () => void 0;
+	export let onClose: () => void = () => void 0;
+
+	export function openWithoutCallback() {
+		dialogElement.showModal();
+	}
+
+	export function openModal() {
+		dialogElement.showModal();
+		onOpen();
+	}
+
+	export function closeModalWithoutCallback() {
+		dialogElement.close();
+	}
+
+	export function closeModal() {
+		dialogElement.close();
+		onClose();
+	}
 
 	function handleOutsideClick(e: MouseEvent) {
 		const dialogDimensions = dialogElement.getBoundingClientRect();
@@ -10,7 +31,7 @@
 			e.clientY < dialogDimensions.top ||
 			e.clientY > dialogDimensions.bottom
 		) {
-			dialogElement.close();
+			closeModal();
 		}
 	}
 </script>
@@ -26,7 +47,22 @@
 		<div class="grow">
 			<slot name="header" />
 		</div>
-		<button on:click={() => dialogElement.close()} class="shrink">X</button>
+		<button on:click={closeModal} class="shrink">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="1em"
+				height="1em"
+				fill="currentColor"
+				class="h-6 w-6 transition-colors hocus:text-gray-600 dark:hocus:text-gray-500"
+				style="display: inline-block; vertical-align: -0.125em; fill: currentColor;"
+				viewBox="0 0 16 16"
+			>
+				<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+				<path
+					d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+				/>
+			</svg><span class="sr-only">close modal</span>
+		</button>
 	</div>
 
 	<div class="overflow-auto p-3">
