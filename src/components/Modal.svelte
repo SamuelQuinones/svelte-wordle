@@ -5,22 +5,22 @@
 	export let onOpen: () => void = () => void 0;
 	export let onClose: () => void = () => void 0;
 
-	export function openWithoutCallback() {
-		dialogElement.showModal();
-	}
-
 	export function openModal() {
 		dialogElement.showModal();
 		onOpen();
 	}
 
-	export function closeModalWithoutCallback() {
-		dialogElement.close();
-	}
-
 	export function closeModal() {
 		dialogElement.close();
 		onClose();
+	}
+
+	export function openWithoutCallback() {
+		dialogElement.showModal();
+	}
+
+	export function closeModalWithoutCallback() {
+		dialogElement.close();
 	}
 
 	function handleOutsideClick(e: MouseEvent) {
@@ -41,7 +41,7 @@
 	{id}
 	class="max-h-[calc(100%-1rem)] w-full overflow-hidden rounded-md dark:bg-gray-800 sm:max-h-[calc(100%-3.5rem)] sm:max-w-lg"
 	bind:this={dialogElement}
-	on:click={handleOutsideClick}
+	on:pointerdown={handleOutsideClick}
 >
 	<div class="flex items-center p-3">
 		<div class="grow">
