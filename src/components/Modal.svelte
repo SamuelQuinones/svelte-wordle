@@ -34,6 +34,14 @@
 			closeModal();
 		}
 	}
+
+	// need this to override closing behavior
+	function onKeyDown(e: KeyboardEvent) {
+		if (e.key.toLowerCase() === 'escape' && dialogElement.open) {
+			e.preventDefault();
+			closeModal();
+		}
+	}
 </script>
 
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions a11y-click-events-have-key-events -->
@@ -42,6 +50,7 @@
 	class="max-h-[calc(100%-1rem)] w-full overflow-hidden rounded-md dark:bg-gray-800 sm:max-h-[calc(100%-3.5rem)] sm:max-w-lg"
 	bind:this={dialogElement}
 	on:pointerdown={handleOutsideClick}
+	on:keydown={onKeyDown}
 >
 	<div class="flex items-center p-3">
 		<div class="grow">

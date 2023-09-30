@@ -77,9 +77,9 @@
 
 	function openTransferModal() {
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-		stats.closeModalWithoutCallback();
+		stats.closeModal();
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-		transfer.openWithoutCallback();
+		transfer.openModal();
 	}
 </script>
 
