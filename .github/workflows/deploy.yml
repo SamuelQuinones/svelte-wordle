@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  check-code:
+  check_code:
     name: Build Svordle
     runs-on: ubuntu-latest
     steps:
@@ -34,6 +34,7 @@ jobs:
           path: 'build/'
   
   deploy:
+    needs: check_code
     name: Deploy App
     runs-on: ubuntu-latest
 
