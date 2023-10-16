@@ -129,7 +129,7 @@ function createGameStore() {
 					for (let i = 0; i < letters.length; i++) {
 						const letter = letters[i];
 						const status = statuses[i];
-						if (status === 'present' && !guess.includes(guess[i])) {
+						if (status === 'present' && !guess.includes(letter)) {
 							toastStore.show({
 								message: `Needs ${letter}`,
 								timeout: 3000,
