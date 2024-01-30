@@ -66,8 +66,8 @@
 		exportableStats === importTextarea
 			? 'bg-yellow-400 dark:bg-yellow-600'
 			: importableStats === null
-			? 'bg-red-500 dark:bg-red-900 text-white'
-			: 'bg-gray-100 dark:bg-slate-700';
+				? 'bg-red-500 dark:bg-red-900 text-white'
+				: 'bg-gray-100 dark:bg-slate-700';
 </script>
 
 <div class="flex items-center gap-x-4">
