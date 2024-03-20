@@ -19,6 +19,6 @@
 	}
 	.input-toggle::after {
 		content: '';
-		@apply absolute left-1 top-1 h-6 w-6 rounded-full bg-white shadow-sm transition-transform;
+		@apply absolute left-1 top-1 size-6 rounded-full bg-white shadow-sm transition-transform;
 	}
 </style>

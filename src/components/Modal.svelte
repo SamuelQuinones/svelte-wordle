@@ -65,7 +65,7 @@
 				width="1em"
 				height="1em"
 				fill="currentColor"
-				class="h-6 w-6"
+				class="size-6"
 				style="display: inline-block; vertical-align: -0.125em; fill: currentColor;"
 				viewBox="0 0 16 16"
 			>

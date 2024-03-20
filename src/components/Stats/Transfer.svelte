@@ -77,7 +77,7 @@
 				id="{operation}-operation"
 				type="radio"
 				name="operations"
-				class="h-4 w-4"
+				class="size-4"
 				value={operation}
 				bind:group={importExportView}
 			/>
